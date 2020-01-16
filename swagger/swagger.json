@@ -1,0 +1,72 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "mobile API",
+        "description": "mobile has every tool to get any job done, so codename for the new mobile APIs.",
+        "version": "1.0.0",
+        "contact": {
+            "email": "astaxie@gmail.com"
+        }
+    },
+    "basePath": "/user",
+    "paths": {
+        "/user/login": {
+            "post": {
+                "tags": [
+                    "chatAppServer/controllersUserController"
+                ],
+                "description": "用户登陆接口",
+                "operationId": "UserController.登陆",
+                "parameters": [
+                    {
+                        "in": "formData",
+                        "name": "phone",
+                        "description": "手机号",
+                        "type": "string"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "id",
+                        "description": "用户id",
+                        "type": "string"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "nickName",
+                        "description": "用户名称",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.c_user.Result"
+                        }
+                    },
+                    "404": {
+                        "description": "接口未找到"
+                    },
+                    "504": {
+                        "description": "接口超时"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "controllers.c_user.Result": {
+            "title": "Result",
+            "type": "object",
+            "properties": {
+                "msg": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer",
+                    "format": "int64"
+                }
+            }
+        }
+    }
+}
