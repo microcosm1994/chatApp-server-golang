@@ -6,14 +6,17 @@ package routers
 
 import (
 	"chatAppServer/controllers"
+
 	"github.com/astaxie/beego"
 )
 
 func init() {
 	ns :=
-		beego.NewNamespace("/user",
-			beego.NSInclude(
-				&controllers.UserController{},
+		beego.NewNamespace("/v1",
+			beego.NSNamespace("/user",
+				beego.NSInclude(
+					&controllers.UserController{},
+				),
 			),
 		)
 	beego.AddNamespace(ns)

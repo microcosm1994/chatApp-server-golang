@@ -6,27 +6,21 @@ info:
   version: 1.0.0
   contact:
     email: astaxie@gmail.com
-basePath: /user
+basePath: /v1
 paths:
   /user/login:
     post:
       tags:
-      - chatAppServer/controllersUserController
+      - user
       description: 用户登陆接口
       operationId: UserController.登陆
       parameters:
-      - in: formData
-        name: phone
-        description: 手机号
-        type: string
-      - in: formData
-        name: id
-        description: 用户id
-        type: string
-      - in: formData
-        name: nickName
-        description: 用户名称
-        type: string
+      - in: body
+        name: data
+        description: 请求参数
+        required: true
+        schema:
+          $ref: '#/definitions/models.SysUser'
       responses:
         "200":
           description: ""
@@ -41,8 +35,42 @@ definitions:
     title: Result
     type: object
     properties:
+      data:
+        $ref: '#/definitions/models.SysUser'
       msg:
         type: string
       status:
         type: integer
         format: int64
+  models.SysUser:
+    title: SysUser
+    required:
+    - id
+    - nickName
+    - phone
+    - createTime
+    - updateTime
+    type: object
+    properties:
+      createTime:
+        description: 创建时间
+        type: string
+        format: datetime
+      id:
+        description: 用户id
+        type: integer
+        format: int64
+      nickName:
+        description: 用户昵称
+        type: string
+      phone:
+        description: 手机号
+        type: string
+      updateTime:
+        description: 更新时间
+        type: string
+        format: datetime
+tags:
+- name: user
+  description: |
+    UserController 用户控制器

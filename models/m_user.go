@@ -1,16 +1,24 @@
 package models
 
 import (
+	"chatAppServer/utils"
+	"encoding/json"
 	"fmt"
+	"time"
+
+	aliyunsmsclient "github.com/KenmyZhang/aliyun-communicate"
+	"github.com/astaxie/beego/config"
 	"github.com/astaxie/beego/orm"
+	"github.com/astaxie/beego/session"
 )
 
+/*SysUser 用户表信息 */
 type SysUser struct {
-	Id         int    `json:"id"`
-	NickName   string `json:"nickName"`
-	Phone      string `json:"phone"`
-	CreateTime string `json:"createTime"`
-	UpdateTime string `json:"updateTime"`
+	Id         int       `orm:"auto" json:"id" required:"false" description:"用户id"`
+	NickName   string    `orm:"default(aa)" json:"nickName" required:"false" description:"用户昵称"`
+	Phone      string    `orm:"unique" json:"phone" required:"false" description:"手机号"`
+	CreateTime time.Time `orm:"auto_now_add;type(datetime)" json:"createTime" required:"false" description:"创建时间"`
+	UpdateTime time.Time `orm:"auto_now;type(datetime)" json:"updateTime" required:"false" description:"更新时间"`
 }
 
 func init() {
@@ -19,30 +27,58 @@ func init() {
 	orm.Debug = true // 是否开启调试模式 调试模式下会打印出sql语句
 }
 
-func AddUser(user *SysUser) string {
-	fmt.Println(user)
-	println(user.Phone)
-	return user.Phone
+/*AddUser 新增用户*/
+func AddUser(user *SysUser) int64 {
+	formData := SysUser{}
+	formData.Phone = user.Phone
+	o := orm.NewOrm()
+	id, err := o.Insert(&formData)
+	if err == nil {
+		return id
+	}
+	return 0
 }
 
-func QuerUser(user *SysUser) bool {
+/*QuerUser 按手机号查询用户列表*/
+func QuerUser(user *SysUser) []SysUser {
 	var userData []SysUser
-	// 获取 QueryBuilder 对象. 需要指定数据库驱动参数。
-	// 第二个返回值是错误对象，在这里略过
-	qb, _ := orm.NewQueryBuilder("mysql")
-	// 构建查询对象
-	qb.Select("*").From("sys_user").
-		Where("phone = ?").
-		OrderBy("update_time").Desc().
-		Limit(10).Offset(0)
-	// 导出 SQL 语句
-	sql := qb.String()
-	// 执行 SQL 语句
 	o := orm.NewOrm()
-	o.Raw(sql, user.Phone).QueryRows(&userData)
+	o.QueryTable("sys_user").Filter("phone", user.Phone).All(&userData)
+	return userData
+}
 
-	// o := orm.NewOrm()
-	// o.QueryTable("sysUser").Filter("phone", user.Phone).All(&userData)
-	fmt.Println(userData)
+/*SendMessage 给用户发送短信*/
+func SendMessage(phone string) bool {
+	iniconf, err := config.NewConfig("ini", "conf/aliyun.conf")
+	if err != nil {
+		return false
+	}
+	code := utils.GenValidateCode(4)
+	fmt.Println(code)
+	var (
+		gatewayUrl      = "http://dysmsapi.aliyuncs.com/"
+		accessKeyId     = iniconf.String("AccessKeyID")
+		accessKeySecret = iniconf.String("AccessKeySecret")
+		phoneNumbers    = phone
+		signName        = "chatApp"
+		templateCode    = iniconf.String("templateCode")
+		templateParam   = "{\"code\":\"" + code + "\"}"
+	)
+	smsClient := aliyunsmsclient.New(gatewayUrl)
+	result, err := smsClient.Execute(accessKeyId, accessKeySecret, phoneNumbers, signName, templateCode, templateParam)
+	fmt.Println("Got raw response from server:", string(result.RawResponse))
+	if err != nil {
+		return false
+	}
+
+	resultJson, err := json.Marshal(result)
+	if err != nil {
+		return false
+	}
+	if result.IsSuccessful() {
+		fmt.Println("A SMS is sent successfully:", resultJson)
+	} else {
+		fmt.Println("Failed to send a SMS:", resultJson)
+	}
 	return true
 }

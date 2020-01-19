@@ -10,7 +10,7 @@ func init() {
     beego.GlobalControllerRouter["chatAppServer/controllers:UserController"] = append(beego.GlobalControllerRouter["chatAppServer/controllers:UserController"],
         beego.ControllerComments{
             Method: "Post",
-            Router: `/user/login`,
+            Router: `/login`,
             AllowHTTPMethods: []string{"Post"},
             MethodParams: param.Make(),
             Filters: nil,
