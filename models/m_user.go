@@ -1,15 +1,9 @@
 package models
 
 import (
-	"chatAppServer/utils"
-	"encoding/json"
-	"fmt"
 	"time"
 
-	aliyunsmsclient "github.com/KenmyZhang/aliyun-communicate"
-	"github.com/astaxie/beego/config"
 	"github.com/astaxie/beego/orm"
-	"github.com/astaxie/beego/session"
 )
 
 /*SysUser 用户表信息 */
@@ -45,40 +39,4 @@ func QuerUser(user *SysUser) []SysUser {
 	o := orm.NewOrm()
 	o.QueryTable("sys_user").Filter("phone", user.Phone).All(&userData)
 	return userData
-}
-
-/*SendMessage 给用户发送短信*/
-func SendMessage(phone string) bool {
-	iniconf, err := config.NewConfig("ini", "conf/aliyun.conf")
-	if err != nil {
-		return false
-	}
-	code := utils.GenValidateCode(4)
-	fmt.Println(code)
-	var (
-		gatewayUrl      = "http://dysmsapi.aliyuncs.com/"
-		accessKeyId     = iniconf.String("AccessKeyID")
-		accessKeySecret = iniconf.String("AccessKeySecret")
-		phoneNumbers    = phone
-		signName        = "chatApp"
-		templateCode    = iniconf.String("templateCode")
-		templateParam   = "{\"code\":\"" + code + "\"}"
-	)
-	smsClient := aliyunsmsclient.New(gatewayUrl)
-	result, err := smsClient.Execute(accessKeyId, accessKeySecret, phoneNumbers, signName, templateCode, templateParam)
-	fmt.Println("Got raw response from server:", string(result.RawResponse))
-	if err != nil {
-		return false
-	}
-
-	resultJson, err := json.Marshal(result)
-	if err != nil {
-		return false
-	}
-	if result.IsSuccessful() {
-		fmt.Println("A SMS is sent successfully:", resultJson)
-	} else {
-		fmt.Println("Failed to send a SMS:", resultJson)
-	}
-	return true
 }
