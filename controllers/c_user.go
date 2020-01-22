@@ -28,8 +28,8 @@ type Result struct {
 type LoginResult struct {
 	Status int            `json:"status"`
 	Msg    string         `json:"msg"`
-	Data   models.SysUser `json:"data"`
-	T   string `json:"t"`
+	Data   models.SysUser `json:"data" description:"用户数据"`
+	T   string `json:"t" description:"token"`
 }
 
 /*Login 登陆注册接口 */
@@ -75,7 +75,7 @@ func (c *UserController) Login() {
 // @Title 登陆验证码
 // @Description 验证登陆验证码接口
 // @Param data body controllers.c_user.Code true "请求参数"
-// @Success 200 {object} controllers.c_user.Result
+// @Success 200 {object} controllers.c_user.LoginResult
 // @Failure 404 接口未找到
 // @Failure 504 接口超时
 // @router /checkCode [Post]

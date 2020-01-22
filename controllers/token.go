@@ -5,6 +5,8 @@ import (
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
+	_ "github.com/astaxie/beego/cache/redis"
+	"github.com/astaxie/beego/cache"
 )
 
 /*TokenController Token控制器 */
@@ -55,3 +57,5 @@ func (c *TokenController) CreateToken(phone string) string {
 	tokenString, _ := token.SignedString([]byte("11111111"))
 	return tokenString
 }
+
+
