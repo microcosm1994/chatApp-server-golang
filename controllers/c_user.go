@@ -13,6 +13,13 @@ type UserController struct {
 	TokenController
 }
 
+/*Usercondition 查询用户列表条件*/
+type Usercondition struct {
+	Offset int `json:"offset"`
+	Limit int `json:"limit"`
+	models.SysUser
+}
+
 /*Code 验证码 */
 type Code struct {
 	Code string `json:"code" required:"true" description:"短信验证码"`
@@ -57,7 +64,6 @@ func (c *UserController) Login() {
 		}
 	}
 	// 发送短信验证码
-	// flag := UtilsController.SendMessage(ob.Phone)
 	flag := c.SendMessage(ob.Phone)
 	fmt.Println(flag)
 	if flag {
@@ -82,22 +88,40 @@ func (c *UserController) Login() {
 func (c *UserController) CheckCode() {
 	var ob Code
 	result := LoginResult{}
+	errResult := Result{}
 	json.Unmarshal(c.Ctx.Input.RequestBody, &ob)
 	// 发送短信验证码
 	code := c.GetSession("code")
-	userInfo := (c.GetSession("userInfo")).(models.SysUser)
 	if ob.Code == code {
+		// 取出用户数据
+		userInfo := (c.GetSession("userInfo")).(models.SysUser)
 		token := c.CreateToken(userInfo.Phone)
 		result.Status = 1
 		result.Msg = "登陆成功"
 		result.T = token
 		// 取出用户信息
 		result.Data = userInfo
-		
+		c.Data["json"] = &result
 	} else {
-		result.Status = 0
-		result.Msg = "短信验证码错误"
+		errResult.Status = 0
+		errResult.Msg = "短信验证码错误"
+		c.Data["json"] = &errResult
 	}
-	c.Data["json"] = &result
 	c.ServeJSON()
 }
+
+/*GetUserList 获取用户列表*/
+// @Title 获取用户列表
+// @Description 获取用户列表
+// @Param data body controllers.c_user.Usercondition true "请求参数"
+// @Success 200 {object} []models.SysUser
+// @Failure 404 接口未找到
+// @Failure 504 接口超时
+// @router /getUserList [Post]
+func (c *UserController) GetUserList() {
+	var userForm Usercondition
+	json.Unmarshal(c.Ctx.Input.RequestBody, &userForm)
+	fmt.Println(userForm)
+	c.ServeJSON()
+}
+

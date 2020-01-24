@@ -2,7 +2,7 @@ package main
 
 import (
 	_ "chatAppServer/routers"
-
+	"chatAppServer/filters"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
 	_ "github.com/go-sql-driver/mysql"
@@ -12,6 +12,7 @@ func init() {
 	//注册数据库
 	orm.RegisterDriver("mysql", orm.DRMySQL)
 	orm.RegisterDataBase("default", "mysql", "root:113655@tcp(localhost:3306)/chatapp_golang?charset=utf8")
+	beego.InsertFilter("/*", beego.BeforeExec, filters.TokenFilter)
 }
 
 func main() {

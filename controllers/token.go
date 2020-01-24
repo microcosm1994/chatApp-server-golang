@@ -5,8 +5,7 @@ import (
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
-	_ "github.com/astaxie/beego/cache/redis"
-	"github.com/astaxie/beego/cache"
+	"chatAppServer/utils"
 )
 
 /*TokenController Token控制器 */
@@ -55,6 +54,10 @@ func (c *TokenController) CreateToken(phone string) string {
 	})
 	fmt.Println(token)
 	tokenString, _ := token.SignedString([]byte("11111111"))
+	Reids := utils.InitRedis()
+	fmt.Println(tokenString)
+	fmt.Println(string(tokenString))
+	Reids.Put(tokenString, phone, 10*time.Minute)
 	return tokenString
 }
 

@@ -40,3 +40,11 @@ func QuerUser(user *SysUser) []SysUser {
 	o.QueryTable("sys_user").Filter("phone", user.Phone).All(&userData)
 	return userData
 }
+
+/*GetUserList 查询全部用户列表（分页）*/
+func GetUserList(user *SysUser) []SysUser {
+	var userData []SysUser
+	o := orm.NewOrm()
+	o.QueryTable("sys_user").Filter("phone", user.Phone).All(&userData)
+	return userData
+}
