@@ -9,7 +9,9 @@ import (
 )
 
 /*TokenController Token控制器 */
-type TokenController struct {}
+type TokenController struct {
+	utils.Redis
+}
 
 /*Config Token配置项 */
 type Config struct {
@@ -52,12 +54,10 @@ func (c *TokenController) CreateToken(phone string) string {
 		"phone": phone,
 		"nbf": time.Now().Add(2*time.Hour).Unix(),
 	})
-	fmt.Println(token)
 	tokenString, _ := token.SignedString([]byte("11111111"))
-	Reids := utils.InitRedis()
-	fmt.Println(tokenString)
-	fmt.Println(string(tokenString))
-	Reids.Put(tokenString, phone, 10*time.Minute)
+	// 保存token到redis
+	c.Redis.Set(tokenString, phone, 60 * 60)
+	fmt.Println("---------保存token--------")
 	return tokenString
 }
 

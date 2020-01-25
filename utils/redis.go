@@ -1,32 +1,54 @@
 package utils
 
 import (
-	"encoding/json"
 	"fmt"
+	"time"
 
-	"github.com/astaxie/beego"
-	_ "github.com/astaxie/beego/cache/redis"
-	"github.com/astaxie/beego/cache"
+	"github.com/gomodule/redigo/redis"
 )
 
-// 定义常量
-var (
-	RedisClient cache.Cache
-)
+/*Redis redis*/
+type Redis struct {
+	pool     *redis.Pool
+}
+
+var red *Redis
 
 /*InitRedis 初始化redis*/
-func InitRedis() cache.Cache {
-	key := beego.AppConfig.String("redis.key")
-	conn := beego.AppConfig.String("redis.conn")
-	dbNum := beego.AppConfig.String("redis.dbNum")
-	// 设置配置参数
-	option := map[string]string{
-		"key":   key,
-		"conn":  conn,
-		"dbNum": dbNum,
+func InitRedis() {
+	red = new(Redis)
+    red.pool = &redis.Pool{
+        MaxIdle:     256,
+        MaxActive:   0,
+        IdleTimeout: time.Duration(120),
+        Dial: func() (redis.Conn, error) {
+            return redis.Dial(
+                "tcp",
+                "127.0.0.1:6379",
+                redis.DialReadTimeout(time.Duration(1000)*time.Millisecond),
+                redis.DialWriteTimeout(time.Duration(1000)*time.Millisecond),
+                redis.DialConnectTimeout(time.Duration(1000)*time.Millisecond),
+                redis.DialDatabase(0),
+            )
+        },
 	}
-	optionStr, _ := json.Marshal(option)
-	fmt.Println(string(optionStr))
-	bm, _ := cache.NewCache("redis", string(optionStr))
-	return bm
+}
+
+/*Set 设置redis*/
+func (c *Redis) Set(key string, val string, ex int) {
+	bm := red.pool.Get()
+	defer bm.Close()
+	bm.Do("SET", key, val, "EX", ex)
+}
+
+/*GetRedis 获取*/
+func (c *Redis) GetRedis(key string) string {
+	bm := red.pool.Get()
+	defer bm.Close()
+	fmt.Println("---------GetRedis----------")
+	val, err := redis.String(bm.Do("GET", key))
+	if err != nil {
+		fmt.Println("redis get failed:", err)
+	} 
+	return val
 }
