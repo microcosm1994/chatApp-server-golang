@@ -1,23 +1,15 @@
 package controllers
 
 import (
-	"fmt"
 	"chatAppServer/models"
 	"encoding/json"
+	"fmt"
 )
-
 
 /*UserController 用户控制器 */
 type UserController struct {
 	UtilsController
 	TokenController
-}
-
-/*Usercondition 查询用户列表条件*/
-type Usercondition struct {
-	Offset int `json:"offset"`
-	Limit int `json:"limit"`
-	models.SysUser
 }
 
 /*Code 验证码 */
@@ -27,8 +19,8 @@ type Code struct {
 
 /*Result 返回结果 */
 type Result struct {
-	Status int            `json:"status"`
-	Msg    string         `json:"msg"`
+	Status int    `json:"status"`
+	Msg    string `json:"msg"`
 }
 
 /*LoginResult 返回结果 */
@@ -36,7 +28,14 @@ type LoginResult struct {
 	Status int            `json:"status"`
 	Msg    string         `json:"msg"`
 	Data   models.SysUser `json:"data" description:"用户数据"`
-	T   string `json:"t" description:"token"`
+	T      string         `json:"t" description:"token"`
+}
+
+/*SearchUserResult 返回结果 */
+type SearchUserResult struct {
+	Status int              `json:"status"`
+	Msg    string           `json:"msg"`
+	Data   []models.SysUser `json:"data" description:"用户数据"`
 }
 
 /*Login 登陆注册接口 */
@@ -48,12 +47,10 @@ type LoginResult struct {
 // @Failure 504 接口超时
 // @router /login [Post]
 func (c *UserController) Login() {
-	var ob models.SysUser
+	var ob models.SearchUser
 	result := Result{}
 	json.Unmarshal(c.Ctx.Input.RequestBody, &ob)
 	resData := models.QuerUser(&ob)
-	// 保存用户信息到session
-	c.SetSession("userInfo", resData[0])
 	if len(resData) == 0 {
 		id := models.AddUser(&ob)
 		if id == 0 {
@@ -61,7 +58,14 @@ func (c *UserController) Login() {
 			result.Msg = "短信验证码发送失败"
 			c.Data["json"] = &result
 			c.ServeJSON()
+		} else {
+			resData := models.QuerUser(&ob)
+			// 保存用户信息到session
+			c.SetSession("userInfo", resData[0])
 		}
+	} else {
+		// 保存用户信息到session
+		c.SetSession("userInfo", resData[0])
 	}
 	// 发送短信验证码
 	flag := c.SendMessage(ob.Phone)
@@ -110,18 +114,24 @@ func (c *UserController) CheckCode() {
 	c.ServeJSON()
 }
 
-/*GetUserList 获取用户列表*/
-// @Title 获取用户列表
-// @Description 获取用户列表
-// @Param data body controllers.c_user.Usercondition true "请求参数"
+/*SearchUser 搜索用户*/
+// @Title 搜索用户
+// @Description 搜索用户
+// @Param data body models.SearchUser true "请求参数"
 // @Success 200 {object} []models.SysUser
 // @Failure 404 接口未找到
 // @Failure 504 接口超时
-// @router /getUserList [Post]
-func (c *UserController) GetUserList() {
-	var userForm Usercondition
-	json.Unmarshal(c.Ctx.Input.RequestBody, &userForm)
-	fmt.Println(userForm)
+// @router /searchUser [Post]
+func (c *UserController) SearchUser() {
+	var ob models.SearchUser
+	result := SearchUserResult{}
+	json.Unmarshal(c.Ctx.Input.RequestBody, &ob)
+	resData := models.QuerUser(&ob)
+	fmt.Println(resData)
+	result.Status = 1
+	result.Msg = "查询用户成功"
+	// 取出用户信息
+	result.Data = resData
+	c.Data["json"] = &result
 	c.ServeJSON()
 }
-

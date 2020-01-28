@@ -10,6 +10,185 @@
     },
     "basePath": "/v1",
     "paths": {
+        "/friends/addFriends": {
+            "post": {
+                "tags": [
+                    "friends"
+                ],
+                "description": "添加好友",
+                "operationId": "FriendsController.添加好友",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "data",
+                        "description": "请求参数",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.SysFriends"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.Result"
+                        }
+                    },
+                    "404": {
+                        "description": "接口未找到"
+                    },
+                    "504": {
+                        "description": "接口超时"
+                    }
+                }
+            }
+        },
+        "/friends/addFriendsAsk": {
+            "post": {
+                "tags": [
+                    "friends"
+                ],
+                "description": "添加新的好友请求",
+                "operationId": "FriendsAskController.添加新的好友请求",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "data",
+                        "description": "请求参数",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.SysFriendsAsk"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.Result"
+                        }
+                    },
+                    "404": {
+                        "description": "接口未找到"
+                    },
+                    "504": {
+                        "description": "接口超时"
+                    }
+                }
+            }
+        },
+        "/friends/getFriendsAskList": {
+            "post": {
+                "tags": [
+                    "friends"
+                ],
+                "description": "获取好友列表",
+                "operationId": "FriendsAskController.获取好友列表",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "data",
+                        "description": "请求参数",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.m_friendsAsk.SysFriendsAsk"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.SysFriendsAsk"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "接口未找到"
+                    },
+                    "504": {
+                        "description": "接口超时"
+                    }
+                }
+            }
+        },
+        "/friends/getFriendsList": {
+            "post": {
+                "tags": [
+                    "friends"
+                ],
+                "description": "获取好友列表",
+                "operationId": "FriendsController.获取好友列表",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "data",
+                        "description": "请求参数",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/{}"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.SysFriends"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "接口未找到"
+                    },
+                    "504": {
+                        "description": "接口超时"
+                    }
+                }
+            }
+        },
+        "/friends/queryFriend": {
+            "post": {
+                "tags": [
+                    "friends"
+                ],
+                "description": "按名称搜索好友",
+                "operationId": "FriendsController.按名称搜索好友",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "data",
+                        "description": "请求参数",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.SearchFriends"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.SysFriends"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "接口未找到"
+                    },
+                    "504": {
+                        "description": "接口超时"
+                    }
+                }
+            }
+        },
         "/user/checkCode": {
             "post": {
                 "tags": [
@@ -33,43 +212,6 @@
                         "description": "",
                         "schema": {
                             "$ref": "#/definitions/controllers.c_user.LoginResult"
-                        }
-                    },
-                    "404": {
-                        "description": "接口未找到"
-                    },
-                    "504": {
-                        "description": "接口超时"
-                    }
-                }
-            }
-        },
-        "/user/getUserList": {
-            "post": {
-                "tags": [
-                    "user"
-                ],
-                "description": "获取用户列表",
-                "operationId": "UserController.获取用户列表",
-                "parameters": [
-                    {
-                        "in": "body",
-                        "name": "data",
-                        "description": "请求参数",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/controllers.c_user.Usercondition"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/models.SysUser"
-                            }
                         }
                     },
                     "404": {
@@ -114,9 +256,59 @@
                     }
                 }
             }
+        },
+        "/user/searchUser": {
+            "post": {
+                "tags": [
+                    "user"
+                ],
+                "description": "搜索用户",
+                "operationId": "UserController.搜索用户",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "data",
+                        "description": "请求参数",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.SearchUser"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.SysUser"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "接口未找到"
+                    },
+                    "504": {
+                        "description": "接口超时"
+                    }
+                }
+            }
         }
     },
     "definitions": {
+        "controllers.Result": {
+            "title": "Result",
+            "type": "object",
+            "properties": {
+                "msg": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer",
+                    "format": "int64"
+                }
+            }
+        },
         "controllers.c_user.Code": {
             "title": "Code",
             "required": [
@@ -164,15 +356,170 @@
                 }
             }
         },
-        "controllers.c_user.Usercondition": {
-            "title": "Usercondition",
+        "models.SearchFriends": {
+            "title": "SearchFriends",
+            "required": [
+                "sourceName",
+                "sourceMark",
+                "targetName",
+                "targetMark",
+                "offset",
+                "limit"
+            ],
             "type": "object",
             "properties": {
                 "limit": {
+                    "description": "数据条数",
                     "type": "integer",
                     "format": "int64"
                 },
                 "offset": {
+                    "description": "偏移量",
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "sourceMark": {
+                    "description": "原用户备注名",
+                    "type": "string"
+                },
+                "sourceName": {
+                    "description": "原用户名",
+                    "type": "string"
+                },
+                "targetMark": {
+                    "description": "目标用户备注名",
+                    "type": "string"
+                },
+                "targetName": {
+                    "description": "目标用户名",
+                    "type": "string"
+                }
+            }
+        },
+        "models.SearchUser": {
+            "title": "SearchUser",
+            "required": [
+                "phone"
+            ],
+            "type": "object",
+            "properties": {
+                "phone": {
+                    "description": "用户手机号",
+                    "type": "string"
+                }
+            }
+        },
+        "models.SysFriends": {
+            "title": "SysFriends",
+            "required": [
+                "id",
+                "sourceUid",
+                "targetUid",
+                "createTime",
+                "sourceName",
+                "sourceMark",
+                "targetName",
+                "targetMark"
+            ],
+            "type": "object",
+            "properties": {
+                "createTime": {
+                    "description": "创建时间",
+                    "type": "string",
+                    "format": "datetime"
+                },
+                "id": {
+                    "description": "好友关系id",
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "sourceMark": {
+                    "description": "原用户备注名",
+                    "type": "string"
+                },
+                "sourceName": {
+                    "description": "原用户名",
+                    "type": "string"
+                },
+                "sourceUid": {
+                    "description": "源用户id",
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "targetMark": {
+                    "description": "目标用户备注名",
+                    "type": "string"
+                },
+                "targetName": {
+                    "description": "目标用户名",
+                    "type": "string"
+                },
+                "targetUid": {
+                    "description": "目标用户id",
+                    "type": "integer",
+                    "format": "int64"
+                }
+            }
+        },
+        "models.SysFriendsAsk": {
+            "title": "SysFriendsAsk",
+            "required": [
+                "id",
+                "sourceUid",
+                "targetUid",
+                "createTime",
+                "sourceName",
+                "sourceMark",
+                "targetName",
+                "targetMark",
+                "del",
+                "isAgree"
+            ],
+            "type": "object",
+            "properties": {
+                "createTime": {
+                    "description": "创建时间",
+                    "type": "string",
+                    "format": "datetime"
+                },
+                "del": {
+                    "description": "软删除标记0：未删除，1：已删除",
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "id": {
+                    "description": "好友关系id",
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "isAgree": {
+                    "description": "是否同意请求0：未同意，1：同意，2：拒绝\t",
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "sourceMark": {
+                    "description": "原用户备注名",
+                    "type": "string"
+                },
+                "sourceName": {
+                    "description": "原用户名",
+                    "type": "string"
+                },
+                "sourceUid": {
+                    "description": "源用户id",
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "targetMark": {
+                    "description": "目标用户备注名",
+                    "type": "string"
+                },
+                "targetName": {
+                    "description": "目标用户名",
+                    "type": "string"
+                },
+                "targetUid": {
+                    "description": "目标用户id",
                     "type": "integer",
                     "format": "int64"
                 }
@@ -213,12 +560,84 @@
                     "format": "datetime"
                 }
             }
+        },
+        "models.m_friendsAsk.SysFriendsAsk": {
+            "title": "SysFriendsAsk",
+            "required": [
+                "id",
+                "sourceUid",
+                "targetUid",
+                "createTime",
+                "sourceName",
+                "sourceMark",
+                "targetName",
+                "targetMark",
+                "del",
+                "isAgree"
+            ],
+            "type": "object",
+            "properties": {
+                "createTime": {
+                    "description": "创建时间",
+                    "type": "string",
+                    "format": "datetime"
+                },
+                "del": {
+                    "description": "软删除标记0：未删除，1：已删除",
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "id": {
+                    "description": "好友关系id",
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "isAgree": {
+                    "description": "是否同意请求0：未同意，1：同意，2：拒绝\t",
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "sourceMark": {
+                    "description": "原用户备注名",
+                    "type": "string"
+                },
+                "sourceName": {
+                    "description": "原用户名",
+                    "type": "string"
+                },
+                "sourceUid": {
+                    "description": "源用户id",
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "targetMark": {
+                    "description": "目标用户备注名",
+                    "type": "string"
+                },
+                "targetName": {
+                    "description": "目标用户名",
+                    "type": "string"
+                },
+                "targetUid": {
+                    "description": "目标用户id",
+                    "type": "integer",
+                    "format": "int64"
+                }
+            }
+        },
+        "{}": {
+            "title": "{}",
+            "type": "object"
         }
     },
     "tags": [
         {
             "name": "user",
             "description": "UserController 用户控制器\n"
+        },
+        {
+            "name": "friends",
+            "description": "FriendsAskController 好友请求控制器\n"
         }
     ]
 }

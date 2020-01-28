@@ -18,6 +18,12 @@ func init() {
 					&controllers.UserController{},
 				),
 			),
+			beego.NSNamespace("/friends",
+				beego.NSInclude(
+					&controllers.FriendsController{},
+					&controllers.FriendsAskController{},
+				),
+			),
 		)
 	beego.AddNamespace(ns)
 }

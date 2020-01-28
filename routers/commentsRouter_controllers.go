@@ -7,6 +7,51 @@ import (
 
 func init() {
 
+    beego.GlobalControllerRouter["chatAppServer/controllers:FriendsAskController"] = append(beego.GlobalControllerRouter["chatAppServer/controllers:FriendsAskController"],
+        beego.ControllerComments{
+            Method: "AddFriendsAsk",
+            Router: `/addFriendsAsk`,
+            AllowHTTPMethods: []string{"Post"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["chatAppServer/controllers:FriendsAskController"] = append(beego.GlobalControllerRouter["chatAppServer/controllers:FriendsAskController"],
+        beego.ControllerComments{
+            Method: "GetFriendsAskList",
+            Router: `/getFriendsAskList`,
+            AllowHTTPMethods: []string{"Post"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["chatAppServer/controllers:FriendsController"] = append(beego.GlobalControllerRouter["chatAppServer/controllers:FriendsController"],
+        beego.ControllerComments{
+            Method: "AddFriends",
+            Router: `/addFriends`,
+            AllowHTTPMethods: []string{"Post"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["chatAppServer/controllers:FriendsController"] = append(beego.GlobalControllerRouter["chatAppServer/controllers:FriendsController"],
+        beego.ControllerComments{
+            Method: "GetFriendsList",
+            Router: `/getFriendsList`,
+            AllowHTTPMethods: []string{"Post"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["chatAppServer/controllers:FriendsController"] = append(beego.GlobalControllerRouter["chatAppServer/controllers:FriendsController"],
+        beego.ControllerComments{
+            Method: "QueryFriends",
+            Router: `/queryFriend`,
+            AllowHTTPMethods: []string{"Post"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
     beego.GlobalControllerRouter["chatAppServer/controllers:UserController"] = append(beego.GlobalControllerRouter["chatAppServer/controllers:UserController"],
         beego.ControllerComments{
             Method: "CheckCode",
@@ -18,8 +63,8 @@ func init() {
 
     beego.GlobalControllerRouter["chatAppServer/controllers:UserController"] = append(beego.GlobalControllerRouter["chatAppServer/controllers:UserController"],
         beego.ControllerComments{
-            Method: "GetUserList",
-            Router: `/getUserList`,
+            Method: "Login",
+            Router: `/login`,
             AllowHTTPMethods: []string{"Post"},
             MethodParams: param.Make(),
             Filters: nil,
@@ -27,8 +72,8 @@ func init() {
 
     beego.GlobalControllerRouter["chatAppServer/controllers:UserController"] = append(beego.GlobalControllerRouter["chatAppServer/controllers:UserController"],
         beego.ControllerComments{
-            Method: "Login",
-            Router: `/login`,
+            Method: "SearchUser",
+            Router: `/searchUser`,
             AllowHTTPMethods: []string{"Post"},
             MethodParams: param.Make(),
             Filters: nil,
