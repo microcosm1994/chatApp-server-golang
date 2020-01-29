@@ -66,7 +66,7 @@
                     "200": {
                         "description": "",
                         "schema": {
-                            "$ref": "#/definitions/controllers.Result"
+                            "$ref": "#/definitions/controllers.FriendsAskResult"
                         }
                     },
                     "404": {
@@ -141,6 +141,74 @@
                             "items": {
                                 "$ref": "#/definitions/models.SysFriends"
                             }
+                        }
+                    },
+                    "404": {
+                        "description": "接口未找到"
+                    },
+                    "504": {
+                        "description": "接口超时"
+                    }
+                }
+            }
+        },
+        "/friends/putFriends": {
+            "post": {
+                "tags": [
+                    "friends"
+                ],
+                "description": "修改好友信息",
+                "operationId": "FriendsController.修改好友信息",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "data",
+                        "description": "请求参数",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.SysFriends"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.Result"
+                        }
+                    },
+                    "404": {
+                        "description": "接口未找到"
+                    },
+                    "504": {
+                        "description": "接口超时"
+                    }
+                }
+            }
+        },
+        "/friends/putFriendsAsk": {
+            "post": {
+                "tags": [
+                    "friends"
+                ],
+                "description": "修改好友请求",
+                "operationId": "FriendsAskController.修改好友请求",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "data",
+                        "description": "请求参数",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.SysFriendsAsk"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.Result"
                         }
                     },
                     "404": {
@@ -296,6 +364,25 @@
         }
     },
     "definitions": {
+        "controllers.FriendsAskResult": {
+            "title": "FriendsAskResult",
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.SysFriendsAsk"
+                    }
+                },
+                "msg": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer",
+                    "format": "int64"
+                }
+            }
+        },
         "controllers.Result": {
             "title": "Result",
             "type": "object",
@@ -358,43 +445,7 @@
         },
         "models.SearchFriends": {
             "title": "SearchFriends",
-            "required": [
-                "sourceName",
-                "sourceMark",
-                "targetName",
-                "targetMark",
-                "offset",
-                "limit"
-            ],
-            "type": "object",
-            "properties": {
-                "limit": {
-                    "description": "数据条数",
-                    "type": "integer",
-                    "format": "int64"
-                },
-                "offset": {
-                    "description": "偏移量",
-                    "type": "integer",
-                    "format": "int64"
-                },
-                "sourceMark": {
-                    "description": "原用户备注名",
-                    "type": "string"
-                },
-                "sourceName": {
-                    "description": "原用户名",
-                    "type": "string"
-                },
-                "targetMark": {
-                    "description": "目标用户备注名",
-                    "type": "string"
-                },
-                "targetName": {
-                    "description": "目标用户名",
-                    "type": "string"
-                }
-            }
+            "type": "object"
         },
         "models.SearchUser": {
             "title": "SearchUser",
@@ -419,7 +470,8 @@
                 "sourceName",
                 "sourceMark",
                 "targetName",
-                "targetMark"
+                "targetMark",
+                "del"
             ],
             "type": "object",
             "properties": {
@@ -427,6 +479,11 @@
                     "description": "创建时间",
                     "type": "string",
                     "format": "datetime"
+                },
+                "del": {
+                    "description": "删除标记",
+                    "type": "integer",
+                    "format": "int64"
                 },
                 "id": {
                     "description": "好友关系id",
@@ -469,9 +526,7 @@
                 "targetUid",
                 "createTime",
                 "sourceName",
-                "sourceMark",
                 "targetName",
-                "targetMark",
                 "del",
                 "isAgree"
             ],
@@ -497,10 +552,6 @@
                     "type": "integer",
                     "format": "int64"
                 },
-                "sourceMark": {
-                    "description": "原用户备注名",
-                    "type": "string"
-                },
                 "sourceName": {
                     "description": "原用户名",
                     "type": "string"
@@ -509,10 +560,6 @@
                     "description": "源用户id",
                     "type": "integer",
                     "format": "int64"
-                },
-                "targetMark": {
-                    "description": "目标用户备注名",
-                    "type": "string"
                 },
                 "targetName": {
                     "description": "目标用户名",
@@ -569,9 +616,7 @@
                 "targetUid",
                 "createTime",
                 "sourceName",
-                "sourceMark",
                 "targetName",
-                "targetMark",
                 "del",
                 "isAgree"
             ],
@@ -597,10 +642,6 @@
                     "type": "integer",
                     "format": "int64"
                 },
-                "sourceMark": {
-                    "description": "原用户备注名",
-                    "type": "string"
-                },
                 "sourceName": {
                     "description": "原用户名",
                     "type": "string"
@@ -609,10 +650,6 @@
                     "description": "源用户id",
                     "type": "integer",
                     "format": "int64"
-                },
-                "targetMark": {
-                    "description": "目标用户备注名",
-                    "type": "string"
                 },
                 "targetName": {
                     "description": "目标用户名",

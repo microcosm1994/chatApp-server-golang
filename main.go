@@ -7,6 +7,7 @@ import (
 	"github.com/astaxie/beego/orm"
 	_ "github.com/go-sql-driver/mysql"
 	"chatAppServer/utils"
+	"chatAppServer/socket"
 )
 
 func init() {
@@ -27,5 +28,7 @@ func main() {
 		beego.BConfig.WebConfig.DirectoryIndex = true
 		beego.BConfig.WebConfig.StaticDir["/swagger"] = "swagger"
 	}
+	// 建立socket
+	socket.NewServer()
 	beego.Run()
 }

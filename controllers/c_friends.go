@@ -11,12 +11,6 @@ type FriendsController struct {
 	MainController
 }
 
-/*Result 返回结果 */
-// type Result struct {
-// 	Status int    `json:"status"`
-// 	Msg    string `json:"msg"`
-// }
-
 /*SearchFriendsResult 返回结果 */
 type SearchFriendsResult struct {
 	Status int                 `json:"status"`
@@ -34,12 +28,32 @@ type SearchFriendsResult struct {
 // @router /addFriends [Post]
 func (c *FriendsController) AddFriends() {
 	var ob models.SysFriends
-	result := Result{}
+	result := SearchFriendsResult{}
 	json.Unmarshal(c.Ctx.Input.RequestBody, &ob)
 	resData := models.AddFrends(&ob)
 	fmt.Println(resData)
 	result.Status = 1
-	result.Msg = "发送好友请求"
+	result.Msg = "添加好友成功"
+	c.Data["json"] = &result
+	c.ServeJSON()
+}
+
+/*PutFriends 修改好友信息*/
+// @Title 修改好友信息
+// @Description 修改好友信息
+// @Param data body models.SysFriends true "请求参数"
+// @Success 200 {object} controllers.Result
+// @Failure 404 接口未找到
+// @Failure 504 接口超时
+// @router /putFriends [Post]
+func (c *FriendsController) PutFriends() {
+	var ob models.SysFriends
+	result := SearchFriendsResult{}
+	json.Unmarshal(c.Ctx.Input.RequestBody, &ob)
+	resData := models.PutFriends(&ob)
+	fmt.Println(resData)
+	result.Status = 1
+	result.Msg = "修改成功"
 	c.Data["json"] = &result
 	c.ServeJSON()
 }
@@ -53,7 +67,7 @@ func (c *FriendsController) AddFriends() {
 // @Failure 504 接口超时
 // @router /queryFriend [Post]
 func (c *FriendsController) QueryFriends() {
-	var ob models.SearchFriends
+	var ob models.SysFriends
 	result := SearchFriendsResult{}
 	json.Unmarshal(c.Ctx.Input.RequestBody, &ob)
 	resData := models.QuerFriends(&ob)
@@ -75,10 +89,10 @@ func (c *FriendsController) QueryFriends() {
 // @Failure 504 接口超时
 // @router /getFriendsList [Post]
 func (c *FriendsController) GetFriendsList() {
-	var ob models.SearchFriends
+	var ob models.SysFriends
 	result := SearchFriendsResult{}
 	json.Unmarshal(c.Ctx.Input.RequestBody, &ob)
-	resData := models.QuerFriends(&ob)
+	resData := models.GetFriendsList(&ob)
 	fmt.Println(resData)
 	result.Status = 1
 	result.Msg = "查询好友成功"

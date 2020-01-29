@@ -25,6 +25,15 @@ func init() {
             Filters: nil,
             Params: nil})
 
+    beego.GlobalControllerRouter["chatAppServer/controllers:FriendsAskController"] = append(beego.GlobalControllerRouter["chatAppServer/controllers:FriendsAskController"],
+        beego.ControllerComments{
+            Method: "PutFriendsAsk",
+            Router: `/putFriendsAsk`,
+            AllowHTTPMethods: []string{"Post"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
     beego.GlobalControllerRouter["chatAppServer/controllers:FriendsController"] = append(beego.GlobalControllerRouter["chatAppServer/controllers:FriendsController"],
         beego.ControllerComments{
             Method: "AddFriends",
@@ -38,6 +47,15 @@ func init() {
         beego.ControllerComments{
             Method: "GetFriendsList",
             Router: `/getFriendsList`,
+            AllowHTTPMethods: []string{"Post"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["chatAppServer/controllers:FriendsController"] = append(beego.GlobalControllerRouter["chatAppServer/controllers:FriendsController"],
+        beego.ControllerComments{
+            Method: "PutFriends",
+            Router: `/putFriends`,
             AllowHTTPMethods: []string{"Post"},
             MethodParams: param.Make(),
             Filters: nil,
