@@ -14,6 +14,8 @@ func init() {
 	//注册数据库
 	orm.RegisterDriver("mysql", orm.DRMySQL)
 	orm.RegisterDataBase("default", "mysql", "root:113655@tcp(localhost:3306)/chatapp_golang?charset=utf8")
+	// 建立socket
+	go socket.NewServer()
 	// 过滤器，token验证
 	beego.InsertFilter("/*", beego.BeforeExec, filters.TokenFilter)
 	// 建立redis连接
@@ -28,7 +30,5 @@ func main() {
 		beego.BConfig.WebConfig.DirectoryIndex = true
 		beego.BConfig.WebConfig.StaticDir["/swagger"] = "swagger"
 	}
-	// 建立socket
-	socket.NewServer()
 	beego.Run()
 }

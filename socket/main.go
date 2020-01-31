@@ -13,8 +13,10 @@ func NewServer() {
 		log.Fatal(err)
 	}
 	server.OnConnect("/", func(s socketio.Conn) error {
-		s.SetContext("")
+		s.Emit("res", "ssssssss")
+		fmt.Println("Url:", s.URL())
 		fmt.Println("connected:", s.ID())
+		s.SetContext("1111")
 		return nil
 	})
 	server.OnEvent("/", "notice", func(s socketio.Conn, msg string) {
@@ -39,10 +41,8 @@ func NewServer() {
 	})
 	go server.Serve()
 	defer server.Close()
-
 	http.Handle("/socket.io/", server)
-	http.Handle("/", http.FileServer(http.Dir("./asset")))
+	http.ListenAndServe(":8000", nil)
 	log.Println("Serving at localhost:8000...")
-	log.Fatal(http.ListenAndServe(":8000", nil))
 }
 
