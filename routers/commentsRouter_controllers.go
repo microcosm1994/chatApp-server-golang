@@ -70,6 +70,24 @@ func init() {
             Filters: nil,
             Params: nil})
 
+    beego.GlobalControllerRouter["chatAppServer/controllers:MsgController"] = append(beego.GlobalControllerRouter["chatAppServer/controllers:MsgController"],
+        beego.ControllerComments{
+            Method: "AddMsg",
+            Router: `/addMsg`,
+            AllowHTTPMethods: []string{"Post"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["chatAppServer/controllers:MsgController"] = append(beego.GlobalControllerRouter["chatAppServer/controllers:MsgController"],
+        beego.ControllerComments{
+            Method: "GetMsgList",
+            Router: `/getMsgList`,
+            AllowHTTPMethods: []string{"Post"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
     beego.GlobalControllerRouter["chatAppServer/controllers:UserController"] = append(beego.GlobalControllerRouter["chatAppServer/controllers:UserController"],
         beego.ControllerComments{
             Method: "CheckCode",

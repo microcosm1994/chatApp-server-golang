@@ -257,6 +257,74 @@
                 }
             }
         },
+        "/msg/addMsg": {
+            "post": {
+                "tags": [
+                    "msg"
+                ],
+                "description": "添加新消息接口",
+                "operationId": "MsgController.添加新消息接口",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "data",
+                        "description": "请求参数",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.SysMsg"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.c_msg.Result"
+                        }
+                    },
+                    "404": {
+                        "description": "接口未找到"
+                    },
+                    "504": {
+                        "description": "接口超时"
+                    }
+                }
+            }
+        },
+        "/msg/getMsgList": {
+            "post": {
+                "tags": [
+                    "msg"
+                ],
+                "description": "获取用户消息",
+                "operationId": "MsgController.获取用户消息",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "data",
+                        "description": "请求参数",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.SysMsg"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.c_msg.Result"
+                        }
+                    },
+                    "404": {
+                        "description": "接口未找到"
+                    },
+                    "504": {
+                        "description": "接口超时"
+                    }
+                }
+            }
+        },
         "/user/checkCode": {
             "post": {
                 "tags": [
@@ -384,6 +452,19 @@
             }
         },
         "controllers.Result": {
+            "title": "Result",
+            "type": "object",
+            "properties": {
+                "msg": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer",
+                    "format": "int64"
+                }
+            }
+        },
+        "controllers.c_msg.Result": {
             "title": "Result",
             "type": "object",
             "properties": {
@@ -572,6 +653,49 @@
                 }
             }
         },
+        "models.SysMsg": {
+            "title": "SysMsg",
+            "required": [
+                "id",
+                "friendsId",
+                "targetUid",
+                "sourceUid",
+                "content",
+                "createTime"
+            ],
+            "type": "object",
+            "properties": {
+                "content": {
+                    "description": "消息内容",
+                    "type": "string"
+                },
+                "createTime": {
+                    "description": "创建时间",
+                    "type": "string",
+                    "format": "datetime"
+                },
+                "friendsId": {
+                    "description": "好友关系id",
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "id": {
+                    "description": "消息id",
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "sourceUid": {
+                    "description": "源id",
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "targetUid": {
+                    "description": "目标id",
+                    "type": "integer",
+                    "format": "int64"
+                }
+            }
+        },
         "models.SysUser": {
             "title": "SysUser",
             "required": [
@@ -675,6 +799,10 @@
         {
             "name": "friends",
             "description": "FriendsAskController 好友请求控制器\n"
+        },
+        {
+            "name": "msg",
+            "description": "MsgController 消息控制器\n"
         }
     ]
 }

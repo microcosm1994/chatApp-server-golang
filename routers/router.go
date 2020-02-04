@@ -24,6 +24,11 @@ func init() {
 					&controllers.FriendsAskController{},
 				),
 			),
+			beego.NSNamespace("/msg",
+				beego.NSInclude(
+					&controllers.MsgController{},
+				),
+			),
 		)
 	beego.AddNamespace(ns)
 }
