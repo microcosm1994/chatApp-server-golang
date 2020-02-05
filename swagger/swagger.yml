@@ -256,6 +256,28 @@ paths:
           description: 接口未找到
         "504":
           description: 接口超时
+  /group/delGroupUser:
+    post:
+      tags:
+      - group
+      description: 移除群成员
+      operationId: GroupController.移除群成员
+      parameters:
+      - in: body
+        name: data
+        description: 请求参数
+        required: true
+        schema:
+          $ref: '#/definitions/models.SysGroupMember'
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/controllers.c_group.GroupResult'
+        "404":
+          description: 接口未找到
+        "504":
+          description: 接口超时
   /group/getGroupAskList:
     post:
       tags:
@@ -322,12 +344,34 @@ paths:
           description: 接口未找到
         "504":
           description: 接口超时
+  /group/getGroupUserList:
+    post:
+      tags:
+      - group
+      description: 获取群成员
+      operationId: GroupController.获取群成员
+      parameters:
+      - in: body
+        name: data
+        description: 请求参数
+        required: true
+        schema:
+          $ref: '#/definitions/models.SysGroupMember'
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/controllers.c_group.GroupResult'
+        "404":
+          description: 接口未找到
+        "504":
+          description: 接口超时
   /group/putGroupAsk:
     post:
       tags:
       - group
-      description: 获取群申请列表
-      operationId: GroupController.获取群申请列表
+      description: 修改群申请
+      operationId: GroupController.修改群申请
       parameters:
       - in: body
         name: data
@@ -763,7 +807,7 @@ definitions:
     title: SysGroupMember
     required:
     - id
-    - userId
+    - user
     - group
     - createTime
     type: object
@@ -779,10 +823,9 @@ definitions:
         description: id
         type: integer
         format: int64
-      userId:
-        description: 成员id(用户id)
-        type: integer
-        format: int64
+      user:
+        $ref: '#/definitions/models.SysUser'
+        description: 群组成员
   models.SysGroupMsg:
     title: SysGroupMsg
     required:

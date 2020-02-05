@@ -1,6 +1,7 @@
 package models
 
 import (
+	"fmt"
 	"time"
 
 	"github.com/astaxie/beego/orm"
@@ -61,4 +62,22 @@ func GetGroupAsk(group *SysGroupAsk) []SysGroupAsk {
 	o := orm.NewOrm()
 	o.QueryTable("sys_group_ask").Filter("group_mp_id", group.GroupMpId).RelatedSel().All(&groupList)
 	return groupList
+}
+
+/*DelGroupAsk 删除群申请*/
+func DelGroupAsk(group *SysGroupAsk) int64 {
+	o := orm.NewOrm()
+	var ask SysGroupAsk
+	// 获取ask id
+	fmt.Println(group.Group.Id)
+	fmt.Println(group.User.Id)
+	o.QueryTable("sys_group_ask").Filter("group_id", group.Group.Id).Filter("user_id", group.User.Id).All(&ask)
+	fmt.Println(ask)
+	formData := SysGroupAsk{
+		Id: ask.Id,
+	}
+	if num, err := o.Delete(&formData); err == nil {
+		return num
+	}
+	return 0
 }

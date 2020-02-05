@@ -46,7 +46,10 @@ func (c *GroupController) AddGroup() {
 		group := models.SysGroup{
 			Id: intRes,
 		}
-		member.UserId = ob.GroupMpId
+		user := models.SysUser{
+			Id: ob.GroupMpId,
+		}
+		member.User = &user
 		member.Group = &group
 		// 新增群成员
 		models.AddGroupMember(&member)
@@ -68,6 +71,8 @@ func (c *GroupController) AddGroup() {
 func (c *GroupController) AddGroupMember() {
 	var ob models.SysGroupMember
 	group := models.SysGroup{}
+	user := models.SysUser{}
+	ob.User = &user
 	ob.Group = &group
 	result := GroupResult{}
 	json.Unmarshal(c.Ctx.Input.RequestBody, &ob)
@@ -128,7 +133,6 @@ func (c *GroupController) SearchGroup() {
 	resData := models.QuerGroup(&ob)
 	result.Status = 1
 	result.Msg = "查询群组成功"
-	// 取出用户信息
 	result.Data = resData
 	c.Data["json"] = &result
 	c.ServeJSON()
@@ -144,12 +148,33 @@ func (c *GroupController) SearchGroup() {
 // @router /getGroupList [Post]
 func (c *GroupController) GetGroupList() {
 	var ob models.SysGroupMember
+	user := models.SysUser{}
+	ob.User = &user
 	result := GroupResult{}
 	json.Unmarshal(c.Ctx.Input.RequestBody, &ob)
 	resData := models.GetGroupMember(&ob)
 	result.Status = 1
 	result.Msg = "获取群列表成功"
-	// 取出用户信息
+	result.GroupList = resData
+	c.Data["json"] = &result
+	c.ServeJSON()
+}
+
+/*GetGroupUserList 获取群成员*/
+// @Title 获取群成员
+// @Description 获取群成员
+// @Param data body models.SysGroupMember true "请求参数"
+// @Success 200 {object} controllers.c_group.GroupResult
+// @Failure 404 接口未找到
+// @Failure 504 接口超时
+// @router /getGroupUserList [Post]
+func (c *GroupController) GetGroupUserList() {
+	var ob models.SysGroup
+	result := GroupResult{}
+	json.Unmarshal(c.Ctx.Input.RequestBody, &ob)
+	resData := models.GetGroupUser(&ob)
+	result.Status = 1
+	result.Msg = "获取群成员成功"
 	result.GroupList = resData
 	c.Data["json"] = &result
 	c.ServeJSON()
@@ -170,15 +195,14 @@ func (c *GroupController) GetGroupAskList() {
 	resData := models.GetGroupAsk(&ob)
 	result.Status = 1
 	result.Msg = "获取群申请列表成功"
-	// 取出用户信息
 	result.GroupAskList = resData
 	c.Data["json"] = &result
 	c.ServeJSON()
 }
 
-/*PutGroupAsk 获取群申请列表*/
-// @Title 获取群申请列表
-// @Description 获取群申请列表
+/*PutGroupAsk 修改群申请*/
+// @Title 修改群申请
+// @Description 修改群申请
 // @Param data body models.SysGroupAsk true "请求参数"
 // @Success 200 {object} controllers.c_group.GroupResult
 // @Failure 404 接口未找到
@@ -195,6 +219,44 @@ func (c *GroupController) PutGroupAsk() {
 	}
 	result.Status = 1
 	result.Msg = "修改群申请成功"
+	c.Data["json"] = &result
+	c.ServeJSON()
+}
+
+/*DelGroupUser 移除群成员*/
+// @Title 移除群成员
+// @Description 移除群成员
+// @Param data body models.SysGroupMember true "请求参数"
+// @Success 200 {object} controllers.c_group.GroupResult
+// @Failure 404 接口未找到
+// @Failure 504 接口超时
+// @router /delGroupUser [Post]
+func (c *GroupController) DelGroupUser() {
+	var ob models.SysGroupMember
+	user := models.SysUser{}
+	group := models.SysGroup{}
+	ob.User = &user
+	ob.Group = &group
+	result := GroupResult{}
+	json.Unmarshal(c.Ctx.Input.RequestBody, &ob)
+	res := models.DelGroupUser(&ob)
+	if res == 0 {
+		result.Status = 0
+		result.Msg = "移除群成员失败"
+	} else {
+		ask := models.SysGroupAsk{}
+		askUser := models.SysUser{
+			Id: ob.User.Id,
+		}
+		askGroup := models.SysGroup{
+			Id: ob.Group.Id,
+		}
+		ask.User = &askUser
+		ask.Group = &askGroup
+		models.DelGroupAsk(&ask)
+	}
+	result.Status = 1
+	result.Msg = "移除群成员成功"
 	c.Data["json"] = &result
 	c.ServeJSON()
 }

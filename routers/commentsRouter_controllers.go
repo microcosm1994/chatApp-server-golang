@@ -99,6 +99,15 @@ func init() {
 
     beego.GlobalControllerRouter["chatAppServer/controllers:GroupController"] = append(beego.GlobalControllerRouter["chatAppServer/controllers:GroupController"],
         beego.ControllerComments{
+            Method: "DelGroupUser",
+            Router: `/delGroupUser`,
+            AllowHTTPMethods: []string{"Post"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["chatAppServer/controllers:GroupController"] = append(beego.GlobalControllerRouter["chatAppServer/controllers:GroupController"],
+        beego.ControllerComments{
             Method: "GetGroupAskList",
             Router: `/getGroupAskList`,
             AllowHTTPMethods: []string{"Post"},
@@ -110,6 +119,15 @@ func init() {
         beego.ControllerComments{
             Method: "GetGroupList",
             Router: `/getGroupList`,
+            AllowHTTPMethods: []string{"Post"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["chatAppServer/controllers:GroupController"] = append(beego.GlobalControllerRouter["chatAppServer/controllers:GroupController"],
+        beego.ControllerComments{
+            Method: "GetGroupUserList",
+            Router: `/getGroupUserList`,
             AllowHTTPMethods: []string{"Post"},
             MethodParams: param.Make(),
             Filters: nil,
