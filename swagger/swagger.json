@@ -257,6 +257,312 @@
                 }
             }
         },
+        "/group/\t": {
+            "post": {
+                "tags": [
+                    "group"
+                ],
+                "description": "添加新的组消息接口",
+                "operationId": "GroupMsgController.添加新的组消息接口",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "data",
+                        "description": "请求参数",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.SysGroupMsg"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.c_groupMsg.groupMsgResult"
+                        }
+                    },
+                    "404": {
+                        "description": "接口未找到"
+                    },
+                    "504": {
+                        "description": "接口超时"
+                    }
+                }
+            }
+        },
+        "/group/addGroup": {
+            "post": {
+                "tags": [
+                    "group"
+                ],
+                "description": "新增群组",
+                "operationId": "GroupController.新增群组",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "data",
+                        "description": "请求参数",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.SysGroup"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.c_group.GroupResult"
+                        }
+                    },
+                    "404": {
+                        "description": "接口未找到"
+                    },
+                    "504": {
+                        "description": "接口超时"
+                    }
+                }
+            }
+        },
+        "/group/addGroupAsk": {
+            "post": {
+                "tags": [
+                    "group"
+                ],
+                "description": "新增群申请",
+                "operationId": "GroupController.新增群申请",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "data",
+                        "description": "请求参数",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.SysGroupAsk"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.c_group.GroupResult"
+                        }
+                    },
+                    "404": {
+                        "description": "接口未找到"
+                    },
+                    "504": {
+                        "description": "接口超时"
+                    }
+                }
+            }
+        },
+        "/group/addGroupMember": {
+            "post": {
+                "tags": [
+                    "group"
+                ],
+                "description": "新增群成员",
+                "operationId": "GroupController.新增群成员",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "data",
+                        "description": "请求参数",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.SysGroupMember"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.c_group.GroupResult"
+                        }
+                    },
+                    "404": {
+                        "description": "接口未找到"
+                    },
+                    "504": {
+                        "description": "接口超时"
+                    }
+                }
+            }
+        },
+        "/group/getGroupAskList": {
+            "post": {
+                "tags": [
+                    "group"
+                ],
+                "description": "获取群申请列表",
+                "operationId": "GroupController.获取群申请列表",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "data",
+                        "description": "请求参数",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.SysGroupAsk"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.c_group.GroupResult"
+                        }
+                    },
+                    "404": {
+                        "description": "接口未找到"
+                    },
+                    "504": {
+                        "description": "接口超时"
+                    }
+                }
+            }
+        },
+        "/group/getGroupList": {
+            "post": {
+                "tags": [
+                    "group"
+                ],
+                "description": "获取群组列表",
+                "operationId": "GroupController.获取群组列表",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "data",
+                        "description": "请求参数",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.SysGroupMember"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.c_group.GroupResult"
+                        }
+                    },
+                    "404": {
+                        "description": "接口未找到"
+                    },
+                    "504": {
+                        "description": "接口超时"
+                    }
+                }
+            }
+        },
+        "/group/getGroupMsgList": {
+            "post": {
+                "tags": [
+                    "group"
+                ],
+                "description": "获取用户消息",
+                "operationId": "GroupMsgController.获取用户消息",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "data",
+                        "description": "请求参数",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.SysMsg"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.c_groupMsg.groupMsgResult"
+                        }
+                    },
+                    "404": {
+                        "description": "接口未找到"
+                    },
+                    "504": {
+                        "description": "接口超时"
+                    }
+                }
+            }
+        },
+        "/group/putGroupAsk": {
+            "post": {
+                "tags": [
+                    "group"
+                ],
+                "description": "获取群申请列表",
+                "operationId": "GroupController.获取群申请列表",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "data",
+                        "description": "请求参数",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.SysGroupAsk"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.c_group.GroupResult"
+                        }
+                    },
+                    "404": {
+                        "description": "接口未找到"
+                    },
+                    "504": {
+                        "description": "接口超时"
+                    }
+                }
+            }
+        },
+        "/group/searchGroup": {
+            "post": {
+                "tags": [
+                    "group"
+                ],
+                "description": "搜索群组",
+                "operationId": "GroupController.搜索群组",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "data",
+                        "description": "请求参数",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.SysGroup"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.c_group.SysGroup"
+                        }
+                    },
+                    "404": {
+                        "description": "接口未找到"
+                    },
+                    "504": {
+                        "description": "接口超时"
+                    }
+                }
+            }
+        },
         "/msg/addMsg": {
             "post": {
                 "tags": [
@@ -279,7 +585,7 @@
                     "200": {
                         "description": "",
                         "schema": {
-                            "$ref": "#/definitions/controllers.c_msg.Result"
+                            "$ref": "#/definitions/controllers.c_msg.MsgResult"
                         }
                     },
                     "404": {
@@ -313,7 +619,7 @@
                     "200": {
                         "description": "",
                         "schema": {
-                            "$ref": "#/definitions/controllers.c_msg.Result"
+                            "$ref": "#/definitions/controllers.c_msg.MsgResult"
                         }
                     },
                     "404": {
@@ -464,10 +770,75 @@
                 }
             }
         },
-        "controllers.c_msg.Result": {
-            "title": "Result",
+        "controllers.c_group.GroupResult": {
+            "title": "GroupResult",
             "type": "object",
             "properties": {
+                "data": {
+                    "description": "群列表",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.SysGroup"
+                    }
+                },
+                "groupAskList": {
+                    "description": "群申请列表",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.SysGroupAsk"
+                    }
+                },
+                "groupList": {
+                    "description": "群列表",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.SysGroupMember"
+                    }
+                },
+                "msg": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer",
+                    "format": "int64"
+                }
+            }
+        },
+        "controllers.c_group.SysGroup": {
+            "title": "SysGroup",
+            "type": "object"
+        },
+        "controllers.c_groupMsg.groupMsgResult": {
+            "title": "groupMsgResult",
+            "type": "object",
+            "properties": {
+                "data": {
+                    "description": "群组消息",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.SysGroupMsg"
+                    }
+                },
+                "msg": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer",
+                    "format": "int64"
+                }
+            }
+        },
+        "controllers.c_msg.MsgResult": {
+            "title": "MsgResult",
+            "type": "object",
+            "properties": {
+                "data": {
+                    "description": "用户消息",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.SysMsg"
+                    }
+                },
                 "msg": {
                     "type": "string"
                 },
@@ -653,6 +1024,158 @@
                 }
             }
         },
+        "models.SysGroup": {
+            "title": "SysGroup",
+            "required": [
+                "id",
+                "groupMpId",
+                "groupName",
+                "groupDes",
+                "createTime"
+            ],
+            "type": "object",
+            "properties": {
+                "createTime": {
+                    "description": "创建时间",
+                    "type": "string",
+                    "format": "datetime"
+                },
+                "groupDes": {
+                    "description": "群说明",
+                    "type": "string"
+                },
+                "groupMpId": {
+                    "description": "群主id",
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "groupName": {
+                    "description": "群名称",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "群id",
+                    "type": "integer",
+                    "format": "int64"
+                }
+            }
+        },
+        "models.SysGroupAsk": {
+            "title": "SysGroupAsk",
+            "required": [
+                "id",
+                "groupMpId",
+                "isAgree",
+                "del",
+                "user",
+                "group",
+                "createTime"
+            ],
+            "type": "object",
+            "properties": {
+                "createTime": {
+                    "description": "创建时间",
+                    "type": "string",
+                    "format": "datetime"
+                },
+                "del": {
+                    "description": "软删除0：不删除，1：删除",
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "group": {
+                    "$ref": "#/definitions/models.SysGroup",
+                    "description": "组信息"
+                },
+                "groupMpId": {
+                    "description": "群主id",
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "id": {
+                    "description": "群id",
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "isAgree": {
+                    "description": "是否同意0：无状态，1：同意，2：拒绝",
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "user": {
+                    "$ref": "#/definitions/models.SysUser",
+                    "description": "申请人信息"
+                }
+            }
+        },
+        "models.SysGroupMember": {
+            "title": "SysGroupMember",
+            "required": [
+                "id",
+                "userId",
+                "group",
+                "createTime"
+            ],
+            "type": "object",
+            "properties": {
+                "createTime": {
+                    "description": "创建时间",
+                    "type": "string",
+                    "format": "datetime"
+                },
+                "group": {
+                    "$ref": "#/definitions/models.SysGroup",
+                    "description": "组信息"
+                },
+                "id": {
+                    "description": "id",
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "userId": {
+                    "description": "成员id(用户id)",
+                    "type": "integer",
+                    "format": "int64"
+                }
+            }
+        },
+        "models.SysGroupMsg": {
+            "title": "SysGroupMsg",
+            "required": [
+                "id",
+                "groupId",
+                "userId",
+                "content",
+                "createTime"
+            ],
+            "type": "object",
+            "properties": {
+                "content": {
+                    "description": "消息内容",
+                    "type": "string"
+                },
+                "createTime": {
+                    "description": "创建时间",
+                    "type": "string",
+                    "format": "datetime"
+                },
+                "groupId": {
+                    "description": "组id",
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "id": {
+                    "description": "消息id",
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "userId": {
+                    "description": "用户id",
+                    "type": "integer",
+                    "format": "int64"
+                }
+            }
+        },
         "models.SysMsg": {
             "title": "SysMsg",
             "required": [
@@ -803,6 +1326,10 @@
         {
             "name": "msg",
             "description": "MsgController 消息控制器\n"
+        },
+        {
+            "name": "group",
+            "description": "GroupMsgController 组消息控制器\n"
         }
     ]
 }

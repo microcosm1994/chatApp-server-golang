@@ -21,7 +21,7 @@ type MsgResult struct {
 // @Title 添加新消息接口
 // @Description 添加新消息接口
 // @Param data body models.SysMsg true "请求参数"
-// @Success 200 {object} controllers.c_msg.Result
+// @Success 200 {object} controllers.c_msg.MsgResult
 // @Failure 404 接口未找到
 // @Failure 504 接口超时
 // @router /addMsg [Post]
@@ -46,7 +46,7 @@ func (c *MsgController) AddMsg() {
 // @Title 获取用户消息
 // @Description 获取用户消息
 // @Param data body models.SysMsg true "请求参数"
-// @Success 200 {object} controllers.c_msg.Result
+// @Success 200 {object} controllers.c_msg.MsgResult
 // @Failure 404 接口未找到
 // @Failure 504 接口超时
 // @router /getMsgList [Post]

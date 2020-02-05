@@ -50,23 +50,10 @@ func (c *UserController) Login() {
 	var ob models.SearchUser
 	result := Result{}
 	json.Unmarshal(c.Ctx.Input.RequestBody, &ob)
+	models.AddUser(&ob)
 	resData := models.QuerUser(&ob)
-	if len(resData) == 0 {
-		id := models.AddUser(&ob)
-		if id == 0 {
-			result.Status = 0
-			result.Msg = "短信验证码发送失败"
-			c.Data["json"] = &result
-			c.ServeJSON()
-		} else {
-			resData := models.QuerUser(&ob)
-			// 保存用户信息到session
-			c.SetSession("userInfo", resData[0])
-		}
-	} else {
-		// 保存用户信息到session
-		c.SetSession("userInfo", resData[0])
-	}
+	// 保存用户信息到session
+	c.SetSession("userInfo", resData[0])
 	// 发送短信验证码
 	flag := c.SendMessage(ob.Phone)
 	fmt.Println(flag)

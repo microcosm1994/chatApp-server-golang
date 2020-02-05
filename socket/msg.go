@@ -7,11 +7,10 @@ import (
 	socketio "github.com/googollee/go-socket.io"
 )
 
-/*UserData Socket用户信息*/
-type UserData struct {
-	Id       int
-	Phone    string
-	NickName string
+/*MsgMount 挂载监听*/
+func MsgMount(server socketio.Server) {
+	JoinRoom(server)
+	SendMsg(server)
 }
 
 /*JoinRoom 加入房间*/

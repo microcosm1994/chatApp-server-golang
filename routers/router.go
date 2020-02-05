@@ -29,6 +29,12 @@ func init() {
 					&controllers.MsgController{},
 				),
 			),
+			beego.NSNamespace("/group",
+				beego.NSInclude(
+					&controllers.GroupController{},
+					&controllers.GroupMsgController{},
+				),
+			),
 		)
 	beego.AddNamespace(ns)
 }

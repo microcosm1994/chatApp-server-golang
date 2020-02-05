@@ -17,6 +17,13 @@ type ConnectionPool struct {
 	User UserData
 }
 
+/*UserData Socket组信息*/
+type UserData struct {
+	Id       int
+	Phone    string
+	NickName string
+}
+
 /*Server socket实例*/
 var Server socketio.Server
 var pool = make(map[string]ConnectionPool)
@@ -45,8 +52,8 @@ func NewServer() {
 	server.OnError("/socket.io/", func(s socketio.Conn, e error) {
 		fmt.Println("meet error:", e)
 	})
-	JoinRoom(*server)
-	SendMsg(*server)
+	MsgMount(*server)
+	GroupMsgMount(*server)
 	go server.Serve()
 	defer server.Close()
 	http.Handle("/", server)

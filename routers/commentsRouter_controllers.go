@@ -70,6 +70,87 @@ func init() {
             Filters: nil,
             Params: nil})
 
+    beego.GlobalControllerRouter["chatAppServer/controllers:GroupController"] = append(beego.GlobalControllerRouter["chatAppServer/controllers:GroupController"],
+        beego.ControllerComments{
+            Method: "AddGroup",
+            Router: `/addGroup`,
+            AllowHTTPMethods: []string{"Post"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["chatAppServer/controllers:GroupController"] = append(beego.GlobalControllerRouter["chatAppServer/controllers:GroupController"],
+        beego.ControllerComments{
+            Method: "AddGroupAsk",
+            Router: `/addGroupAsk`,
+            AllowHTTPMethods: []string{"Post"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["chatAppServer/controllers:GroupController"] = append(beego.GlobalControllerRouter["chatAppServer/controllers:GroupController"],
+        beego.ControllerComments{
+            Method: "AddGroupMember",
+            Router: `/addGroupMember`,
+            AllowHTTPMethods: []string{"Post"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["chatAppServer/controllers:GroupController"] = append(beego.GlobalControllerRouter["chatAppServer/controllers:GroupController"],
+        beego.ControllerComments{
+            Method: "GetGroupAskList",
+            Router: `/getGroupAskList`,
+            AllowHTTPMethods: []string{"Post"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["chatAppServer/controllers:GroupController"] = append(beego.GlobalControllerRouter["chatAppServer/controllers:GroupController"],
+        beego.ControllerComments{
+            Method: "GetGroupList",
+            Router: `/getGroupList`,
+            AllowHTTPMethods: []string{"Post"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["chatAppServer/controllers:GroupController"] = append(beego.GlobalControllerRouter["chatAppServer/controllers:GroupController"],
+        beego.ControllerComments{
+            Method: "PutGroupAsk",
+            Router: `/putGroupAsk`,
+            AllowHTTPMethods: []string{"Post"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["chatAppServer/controllers:GroupController"] = append(beego.GlobalControllerRouter["chatAppServer/controllers:GroupController"],
+        beego.ControllerComments{
+            Method: "SearchGroup",
+            Router: `/searchGroup`,
+            AllowHTTPMethods: []string{"Post"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["chatAppServer/controllers:GroupMsgController"] = append(beego.GlobalControllerRouter["chatAppServer/controllers:GroupMsgController"],
+        beego.ControllerComments{
+            Method: "AddGroupMsg",
+            Router: `/`,
+            AllowHTTPMethods: []string{"Post"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["chatAppServer/controllers:GroupMsgController"] = append(beego.GlobalControllerRouter["chatAppServer/controllers:GroupMsgController"],
+        beego.ControllerComments{
+            Method: "GetGroupMsgList",
+            Router: `/getGroupMsgList`,
+            AllowHTTPMethods: []string{"Post"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
     beego.GlobalControllerRouter["chatAppServer/controllers:MsgController"] = append(beego.GlobalControllerRouter["chatAppServer/controllers:MsgController"],
         beego.ControllerComments{
             Method: "AddMsg",

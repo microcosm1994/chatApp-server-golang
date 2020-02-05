@@ -32,9 +32,10 @@ func AddUser(user *SearchUser) int64 {
 	formData.Phone = user.Phone
 	formData.NickName = user.Phone
 	o := orm.NewOrm()
-	id, err := o.Insert(&formData)
-	if err == nil {
-		return id
+	if created, id, err := o.ReadOrCreate(&formData, "phone"); err == nil {
+		if created {
+			return id
+		}
 	}
 	return 0
 }
