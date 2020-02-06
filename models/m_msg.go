@@ -19,7 +19,7 @@ type SysMsg struct {
 func init() {
 	// 需要在init中注册定义的model
 	orm.RegisterModel(new(SysMsg))
-	orm.Debug = true // 是否开启调试模式 调试模式下会打印出sql语句
+	orm.Debug = false // 是否开启调试模式 调试模式下会打印出sql语句
 }
 
 /*AddMsg 新增消息*/

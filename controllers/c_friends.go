@@ -3,7 +3,6 @@ package controllers
 import (
 	"chatAppServer/models"
 	"encoding/json"
-	"fmt"
 )
 
 /*FriendsController 好友控制器 */
@@ -30,8 +29,7 @@ func (c *FriendsController) AddFriends() {
 	var ob models.SysFriends
 	result := SearchFriendsResult{}
 	json.Unmarshal(c.Ctx.Input.RequestBody, &ob)
-	resData := models.AddFrends(&ob)
-	fmt.Println(resData)
+	models.AddFrends(&ob)
 	result.Status = 1
 	result.Msg = "添加好友成功"
 	c.Data["json"] = &result
@@ -50,8 +48,7 @@ func (c *FriendsController) PutFriends() {
 	var ob models.SysFriends
 	result := SearchFriendsResult{}
 	json.Unmarshal(c.Ctx.Input.RequestBody, &ob)
-	resData := models.PutFriends(&ob)
-	fmt.Println(resData)
+	models.PutFriends(&ob)
 	result.Status = 1
 	result.Msg = "修改成功"
 	c.Data["json"] = &result
@@ -71,7 +68,6 @@ func (c *FriendsController) QueryFriends() {
 	result := SearchFriendsResult{}
 	json.Unmarshal(c.Ctx.Input.RequestBody, &ob)
 	resData := models.QuerFriends(&ob)
-	fmt.Println(resData)
 	result.Status = 1
 	result.Msg = "查询好友成功"
 	// 取出用户信息
@@ -93,7 +89,6 @@ func (c *FriendsController) GetFriendsList() {
 	result := SearchFriendsResult{}
 	json.Unmarshal(c.Ctx.Input.RequestBody, &ob)
 	resData := models.GetFriendsList(&ob)
-	fmt.Println(resData)
 	result.Status = 1
 	result.Msg = "查询好友成功"
 	// 取出用户信息

@@ -1,7 +1,6 @@
 package socket
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 	"strconv"
@@ -35,11 +34,9 @@ func NewServer() {
 		log.Fatal(err)
 	}
 	server.OnConnect("/", func(s socketio.Conn) error {
-		fmt.Println(s.ID())
 		return nil
 	})
 	server.OnEvent("/socket.io/", "ConnStatus", func(s socketio.Conn, msg UserData) error {
-		fmt.Println(msg)
 		Server = *server
 		key := strconv.Itoa(msg.Id)
 		pool[key] = ConnectionPool{
@@ -50,10 +47,10 @@ func NewServer() {
 		return nil
 	})
 	server.OnError("/socket.io/", func(s socketio.Conn, e error) {
-		fmt.Println("meet error:", e)
 	})
 	MsgMount(*server)
 	GroupMsgMount(*server)
+	VideoMount(*server, pool)
 	go server.Serve()
 	defer server.Close()
 	http.Handle("/", server)

@@ -39,18 +39,16 @@ func (c *UtilsController) SendMessage(phone string) bool {
 	c.SetSession("code", code)
 	fmt.Println("code", code)
 	var (
-		gatewayUrl      = "http://dysmsapi.aliyuncs.com/"
-		accessKeyId     = iniconf.String("AccessKeyID")
+		gatewayURL      = "http://dysmsapi.aliyuncs.com/"
+		accessKeyID     = iniconf.String("AccessKeyID")
 		accessKeySecret = iniconf.String("AccessKeySecret")
 		phoneNumbers    = phone
 		signName        = "chatApp"
 		templateCode    = iniconf.String("templateCode")
 		templateParam   = "{\"code\":\"" + code + "\"}"
 	)
-	smsClient := aliyunsmsclient.New(gatewayUrl)
-	result, _ := smsClient.Execute(accessKeyId, accessKeySecret, phoneNumbers, signName, templateCode, templateParam)
-	// 打印短信发送状态
-	fmt.Println("短信状态:", string(result.RawResponse))
+	smsClient := aliyunsmsclient.New(gatewayURL)
+	result, _ := smsClient.Execute(accessKeyID, accessKeySecret, phoneNumbers, signName, templateCode, templateParam)
 	if result.IsSuccessful() {
 		// 保存短信验证码
 		c.SetSession("code", code)
@@ -58,4 +56,3 @@ func (c *UtilsController) SendMessage(phone string) bool {
 	}
 	return false
 }
-

@@ -18,7 +18,7 @@ type SysGroupMsg struct {
 func init() {
 	// 需要在init中注册定义的model
 	orm.RegisterModel(new(SysGroupMsg))
-	orm.Debug = true // 是否开启调试模式 调试模式下会打印出sql语句
+	orm.Debug = false // 是否开启调试模式 调试模式下会打印出sql语句
 }
 
 /*AddGroupMsg 新增组消息*/

@@ -1,7 +1,6 @@
 package socket
 
 import (
-	"fmt"
 	"strconv"
 	"chatAppServer/models"
 	socketio "github.com/googollee/go-socket.io"
@@ -32,7 +31,6 @@ func JoinGroupRoom(server socketio.Server) {
 /*SendGroupMsg 发送群组消息*/
 func SendGroupMsg(server socketio.Server) {
 	server.OnEvent("/socket.io/", "SendGroupMessage", func(s socketio.Conn, msg models.SysGroupMsg) error {
-		fmt.Println(msg)
 		// 生成房间
 		groupRoom := "g_" + strconv.Itoa(msg.GroupId)
 		server.BroadcastToRoom(groupRoom, "GroupRoomMsg", msg)

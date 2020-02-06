@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"fmt"
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
@@ -57,7 +56,6 @@ func (c *TokenController) CreateToken(phone string) string {
 	tokenString, _ := token.SignedString([]byte("11111111"))
 	// 保存token到redis
 	c.Redis.Set(tokenString, phone, 60 * 60 * 24)
-	fmt.Println("---------保存token--------")
 	return tokenString
 }
 

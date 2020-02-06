@@ -1,7 +1,6 @@
 package models
 
 import (
-	"fmt"
 	"time"
 
 	"github.com/astaxie/beego/orm"
@@ -23,12 +22,11 @@ type SysFriends struct {
 func init() {
 	// 需要在init中注册定义的model
 	orm.RegisterModel(new(SysFriends))
-	orm.Debug = true // 是否开启调试模式 调试模式下会打印出sql语句
+	orm.Debug = false // 是否开启调试模式 调试模式下会打印出sql语句
 }
 
 /*AddFrends 新增好友关系*/
 func AddFrends(friends *SysFriends) int64 {
-	fmt.Println(friends)
 	formData := SysFriends{}
 	formData.SourceUid = friends.SourceUid
 	formData.TargetUid = friends.TargetUid

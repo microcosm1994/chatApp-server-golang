@@ -3,7 +3,6 @@ package controllers
 import (
 	"chatAppServer/models"
 	"encoding/json"
-	"fmt"
 )
 
 /*FriendsAskController 好友请求控制器 */
@@ -30,9 +29,8 @@ func (c *FriendsAskController) AddFriendsAsk() {
 	var ob models.SysFriendsAsk
 	result := FriendsAskResult{}
 	json.Unmarshal(c.Ctx.Input.RequestBody, &ob)
-	resId := models.AddFrendsAsk(&ob)
-	fmt.Println(resId)
-	if resId == 0 {
+	resID := models.AddFrendsAsk(&ob)
+	if resID == 0 {
 		result.Msg = "您已发送过好友申请,请等待对方同意。"
 	} else {
 		result.Msg = "已发送好友请求"
@@ -55,7 +53,6 @@ func (c *FriendsAskController) PutFriendsAsk() {
 	result := FriendsAskResult{}
 	json.Unmarshal(c.Ctx.Input.RequestBody, &ob)
 	num := models.PutFriendsAsk(&ob)
-	fmt.Println("num",num)
 	if num == 0 {
 		result.Msg = "修改失败"
 	} else {
@@ -79,7 +76,6 @@ func (c *FriendsAskController) GetFriendsAskList() {
 	result := FriendsAskResult{}
 	json.Unmarshal(c.Ctx.Input.RequestBody, &ob)
 	resData := models.GetFriendsAskList(&ob)
-	fmt.Println(resData)
 	result.Status = 1
 	result.Msg = "获取好友请求列表成功"
 	// 取出用户信息

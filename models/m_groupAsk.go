@@ -1,7 +1,6 @@
 package models
 
 import (
-	"fmt"
 	"time"
 
 	"github.com/astaxie/beego/orm"
@@ -21,7 +20,7 @@ type SysGroupAsk struct {
 func init() {
 	// 需要在init中注册定义的model
 	orm.RegisterModel(new(SysGroupAsk))
-	orm.Debug = true // 是否开启调试模式 调试模式下会打印出sql语句
+	orm.Debug = false // 是否开启调试模式 调试模式下会打印出sql语句
 }
 
 /*AddGroupAsk 新增群组申请*/
@@ -69,10 +68,7 @@ func DelGroupAsk(group *SysGroupAsk) int64 {
 	o := orm.NewOrm()
 	var ask SysGroupAsk
 	// 获取ask id
-	fmt.Println(group.Group.Id)
-	fmt.Println(group.User.Id)
 	o.QueryTable("sys_group_ask").Filter("group_id", group.Group.Id).Filter("user_id", group.User.Id).All(&ask)
-	fmt.Println(ask)
 	formData := SysGroupAsk{
 		Id: ask.Id,
 	}

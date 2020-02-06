@@ -3,7 +3,6 @@ package controllers
 import (
 	"chatAppServer/models"
 	"encoding/json"
-	"fmt"
 )
 
 /*UserController 用户控制器 */
@@ -56,7 +55,6 @@ func (c *UserController) Login() {
 	c.SetSession("userInfo", resData[0])
 	// 发送短信验证码
 	flag := c.SendMessage(ob.Phone)
-	fmt.Println(flag)
 	if flag {
 		result.Status = 1
 		result.Msg = "短信验证码发送成功"
@@ -114,7 +112,6 @@ func (c *UserController) SearchUser() {
 	result := SearchUserResult{}
 	json.Unmarshal(c.Ctx.Input.RequestBody, &ob)
 	resData := models.QuerUser(&ob)
-	fmt.Println(resData)
 	result.Status = 1
 	result.Msg = "查询用户成功"
 	// 取出用户信息
