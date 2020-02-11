@@ -256,6 +256,28 @@ paths:
           description: 接口未找到
         "504":
           description: 接口超时
+  /group/addVideoGroup:
+    post:
+      tags:
+      - group
+      description: 新增视频群组
+      operationId: GroupController.新增视频群组
+      parameters:
+      - in: body
+        name: data
+        description: 请求参数
+        required: true
+        schema:
+          $ref: '#/definitions/models.SysVideoGroup'
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/controllers.c_group.VideoGroupResult'
+        "404":
+          description: 接口未找到
+        "504":
+          description: 接口超时
   /group/delGroupUser:
     post:
       tags:
@@ -274,6 +296,28 @@ paths:
           description: ""
           schema:
             $ref: '#/definitions/controllers.c_group.GroupResult'
+        "404":
+          description: 接口未找到
+        "504":
+          description: 接口超时
+  /group/delVideoGroup:
+    post:
+      tags:
+      - group
+      description: 删除会议室
+      operationId: GroupController.删除会议室
+      parameters:
+      - in: body
+        name: data
+        description: 请求参数
+        required: true
+        schema:
+          $ref: '#/definitions/models.SysVideoGroup'
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/controllers.c_group.VideoGroupResult'
         "404":
           description: 接口未找到
         "504":
@@ -366,6 +410,28 @@ paths:
           description: 接口未找到
         "504":
           description: 接口超时
+  /group/getVideoGroupList:
+    post:
+      tags:
+      - group
+      description: 获取群视频列表
+      operationId: GroupController.获取群视频列表
+      parameters:
+      - in: body
+        name: data
+        description: 请求参数
+        required: true
+        schema:
+          $ref: '#/definitions/models.SysVideoGroup'
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/controllers.c_group.VideoGroupResult'
+        "404":
+          description: 接口未找到
+        "504":
+          description: 接口超时
   /group/putGroupAsk:
     post:
       tags:
@@ -406,6 +472,28 @@ paths:
           description: ""
           schema:
             $ref: '#/definitions/controllers.c_group.SysGroup'
+        "404":
+          description: 接口未找到
+        "504":
+          description: 接口超时
+  /group/searchVideoGroup:
+    post:
+      tags:
+      - group
+      description: 搜索视频群组
+      operationId: GroupController.搜索视频群组
+      parameters:
+      - in: body
+        name: data
+        description: 请求参数
+        required: true
+        schema:
+          $ref: '#/definitions/models.SysVideoGroup'
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/controllers.c_group.VideoGroupResult'
         "404":
           description: 接口未找到
         "504":
@@ -575,6 +663,20 @@ definitions:
   controllers.c_group.SysGroup:
     title: SysGroup
     type: object
+  controllers.c_group.VideoGroupResult:
+    title: VideoGroupResult
+    type: object
+    properties:
+      data:
+        description: 视频群列表
+        type: array
+        items:
+          $ref: '#/definitions/models.SysVideoGroup'
+      msg:
+        type: string
+      status:
+        type: integer
+        format: int64
   controllers.c_groupMsg.groupMsgResult:
     title: groupMsgResult
     type: object
@@ -917,6 +1019,34 @@ definitions:
         description: 更新时间
         type: string
         format: datetime
+  models.SysVideoGroup:
+    title: SysVideoGroup
+    required:
+    - id
+    - groupMpId
+    - groupName
+    - groupDes
+    - createTime
+    type: object
+    properties:
+      createTime:
+        description: 创建时间
+        type: string
+        format: datetime
+      groupDes:
+        description: 群说明
+        type: string
+      groupMpId:
+        description: 群主id
+        type: integer
+        format: int64
+      groupName:
+        description: 群名称
+        type: string
+      id:
+        description: 群id
+        type: integer
+        format: int64
   models.m_friendsAsk.SysFriendsAsk:
     title: SysFriendsAsk
     required:
@@ -972,4 +1102,4 @@ tags:
     MsgController 消息控制器
 - name: group
   description: |
-    GroupMsgController 组消息控制器
+    VideoGroupController 视频群组控制器

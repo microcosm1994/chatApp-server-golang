@@ -99,8 +99,26 @@ func init() {
 
     beego.GlobalControllerRouter["chatAppServer/controllers:GroupController"] = append(beego.GlobalControllerRouter["chatAppServer/controllers:GroupController"],
         beego.ControllerComments{
+            Method: "AddVideoGroup",
+            Router: `/addVideoGroup`,
+            AllowHTTPMethods: []string{"Post"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["chatAppServer/controllers:GroupController"] = append(beego.GlobalControllerRouter["chatAppServer/controllers:GroupController"],
+        beego.ControllerComments{
             Method: "DelGroupUser",
             Router: `/delGroupUser`,
+            AllowHTTPMethods: []string{"Post"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["chatAppServer/controllers:GroupController"] = append(beego.GlobalControllerRouter["chatAppServer/controllers:GroupController"],
+        beego.ControllerComments{
+            Method: "DelVideoGroup",
+            Router: `/delVideoGroup`,
             AllowHTTPMethods: []string{"Post"},
             MethodParams: param.Make(),
             Filters: nil,
@@ -135,6 +153,15 @@ func init() {
 
     beego.GlobalControllerRouter["chatAppServer/controllers:GroupController"] = append(beego.GlobalControllerRouter["chatAppServer/controllers:GroupController"],
         beego.ControllerComments{
+            Method: "GetVideoGroupList",
+            Router: `/getVideoGroupList`,
+            AllowHTTPMethods: []string{"Post"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["chatAppServer/controllers:GroupController"] = append(beego.GlobalControllerRouter["chatAppServer/controllers:GroupController"],
+        beego.ControllerComments{
             Method: "PutGroupAsk",
             Router: `/putGroupAsk`,
             AllowHTTPMethods: []string{"Post"},
@@ -146,6 +173,15 @@ func init() {
         beego.ControllerComments{
             Method: "SearchGroup",
             Router: `/searchGroup`,
+            AllowHTTPMethods: []string{"Post"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["chatAppServer/controllers:GroupController"] = append(beego.GlobalControllerRouter["chatAppServer/controllers:GroupController"],
+        beego.ControllerComments{
+            Method: "SearchVideoGroup",
+            Router: `/searchVideoGroup`,
             AllowHTTPMethods: []string{"Post"},
             MethodParams: param.Make(),
             Filters: nil,

@@ -33,6 +33,7 @@ func init() {
 				beego.NSInclude(
 					&controllers.GroupController{},
 					&controllers.GroupMsgController{},
+					&controllers.VideoGroupController{},
 				),
 			),
 		)
