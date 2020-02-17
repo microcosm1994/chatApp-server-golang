@@ -427,6 +427,40 @@
                 }
             }
         },
+        "/group/addVideoGroupMember": {
+            "post": {
+                "tags": [
+                    "group"
+                ],
+                "description": "新增视频会议成员",
+                "operationId": "GroupController.新增视频会议成员",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "data",
+                        "description": "请求参数",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.SysVideoGroupMember"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.c_group.VideoGroupMemberResult"
+                        }
+                    },
+                    "404": {
+                        "description": "接口未找到"
+                    },
+                    "504": {
+                        "description": "接口超时"
+                    }
+                }
+            }
+        },
         "/group/delGroupUser": {
             "post": {
                 "tags": [
@@ -484,6 +518,40 @@
                         "description": "",
                         "schema": {
                             "$ref": "#/definitions/controllers.c_group.VideoGroupResult"
+                        }
+                    },
+                    "404": {
+                        "description": "接口未找到"
+                    },
+                    "504": {
+                        "description": "接口超时"
+                    }
+                }
+            }
+        },
+        "/group/delVideoGroupUser": {
+            "post": {
+                "tags": [
+                    "group"
+                ],
+                "description": "移除视频会议成员",
+                "operationId": "GroupController.移除视频会议成员",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "data",
+                        "description": "请求参数",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.SysVideoGroupMember"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.c_group.VideoGroupMemberResult"
                         }
                     },
                     "404": {
@@ -654,6 +722,40 @@
                         "description": "",
                         "schema": {
                             "$ref": "#/definitions/controllers.c_group.VideoGroupResult"
+                        }
+                    },
+                    "404": {
+                        "description": "接口未找到"
+                    },
+                    "504": {
+                        "description": "接口超时"
+                    }
+                }
+            }
+        },
+        "/group/getVideoGroupUserList": {
+            "post": {
+                "tags": [
+                    "group"
+                ],
+                "description": "获取视频会议成员",
+                "operationId": "GroupController.获取视频会议成员",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "data",
+                        "description": "请求参数",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.SysVideoGroup"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.c_group.VideoGroupMemberResult"
                         }
                     },
                     "404": {
@@ -942,6 +1044,10 @@
         }
     },
     "definitions": {
+        "23299.0xc000391bc0.false": {
+            "title": "false",
+            "type": "object"
+        },
         "controllers.FriendsAskResult": {
             "title": "FriendsAskResult",
             "type": "object",
@@ -1011,6 +1117,22 @@
         "controllers.c_group.SysGroup": {
             "title": "SysGroup",
             "type": "object"
+        },
+        "controllers.c_group.VideoGroupMemberResult": {
+            "title": "VideoGroupMemberResult",
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/23299.0xc000391bc0.false"
+                },
+                "msg": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer",
+                    "format": "int64"
+                }
+            }
         },
         "controllers.c_group.VideoGroupResult": {
             "title": "VideoGroupResult",
@@ -1514,6 +1636,36 @@
                 }
             }
         },
+        "models.SysVideoGroupMember": {
+            "title": "SysVideoGroupMember",
+            "required": [
+                "id",
+                "user",
+                "videoGroup",
+                "createTime"
+            ],
+            "type": "object",
+            "properties": {
+                "createTime": {
+                    "description": "创建时间",
+                    "type": "string",
+                    "format": "datetime"
+                },
+                "id": {
+                    "description": "id",
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "user": {
+                    "$ref": "#/definitions/models.SysUser",
+                    "description": "视频会议成员"
+                },
+                "videoGroup": {
+                    "$ref": "#/definitions/models.SysVideoGroup",
+                    "description": "视频会议信息"
+                }
+            }
+        },
         "models.m_friendsAsk.SysFriendsAsk": {
             "title": "SysFriendsAsk",
             "required": [
@@ -1588,7 +1740,7 @@
         },
         {
             "name": "group",
-            "description": "VideoGroupController 视频群组控制器\n"
+            "description": "VideoGroupMemberController 视频会议成员控制器\n"
         }
     ]
 }

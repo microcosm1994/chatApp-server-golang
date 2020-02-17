@@ -34,6 +34,7 @@ func init() {
 					&controllers.GroupController{},
 					&controllers.GroupMsgController{},
 					&controllers.VideoGroupController{},
+					&controllers.VideoGroupMemberController{},
 				),
 			),
 		)

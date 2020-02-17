@@ -108,6 +108,15 @@ func init() {
 
     beego.GlobalControllerRouter["chatAppServer/controllers:GroupController"] = append(beego.GlobalControllerRouter["chatAppServer/controllers:GroupController"],
         beego.ControllerComments{
+            Method: "AddVideoGroupMember",
+            Router: `/addVideoGroupMember`,
+            AllowHTTPMethods: []string{"Post"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["chatAppServer/controllers:GroupController"] = append(beego.GlobalControllerRouter["chatAppServer/controllers:GroupController"],
+        beego.ControllerComments{
             Method: "DelGroupUser",
             Router: `/delGroupUser`,
             AllowHTTPMethods: []string{"Post"},
@@ -119,6 +128,15 @@ func init() {
         beego.ControllerComments{
             Method: "DelVideoGroup",
             Router: `/delVideoGroup`,
+            AllowHTTPMethods: []string{"Post"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["chatAppServer/controllers:GroupController"] = append(beego.GlobalControllerRouter["chatAppServer/controllers:GroupController"],
+        beego.ControllerComments{
+            Method: "DelVideoGroupUser",
+            Router: `/delVideoGroupUser`,
             AllowHTTPMethods: []string{"Post"},
             MethodParams: param.Make(),
             Filters: nil,
@@ -155,6 +173,15 @@ func init() {
         beego.ControllerComments{
             Method: "GetVideoGroupList",
             Router: `/getVideoGroupList`,
+            AllowHTTPMethods: []string{"Post"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["chatAppServer/controllers:GroupController"] = append(beego.GlobalControllerRouter["chatAppServer/controllers:GroupController"],
+        beego.ControllerComments{
+            Method: "GetVideoGroupUserList",
+            Router: `/getVideoGroupUserList`,
             AllowHTTPMethods: []string{"Post"},
             MethodParams: param.Make(),
             Filters: nil,

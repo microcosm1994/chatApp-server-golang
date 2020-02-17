@@ -92,7 +92,6 @@ func Ice(server socketio.Server) {
 func Offer(server socketio.Server) {
 	server.OnEvent("/socket.io/", "video_offer", func(s socketio.Conn, msg Ops, data interface{}) error {
 		var result Result
-		result.Type = msg.Type
 		result.TargetId = msg.TargetId
 		result.Data = data
 		// 生成房间
@@ -106,7 +105,6 @@ func Offer(server socketio.Server) {
 func Answer(server socketio.Server) {
 	server.OnEvent("/socket.io/", "video_answer", func(s socketio.Conn, msg Ops, data interface{}) error {
 		var result Result
-		result.Type = msg.Type
 		result.TargetId = msg.TargetId
 		result.Data = data
 		// 生成房间

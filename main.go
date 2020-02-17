@@ -2,7 +2,7 @@ package main
 
 import (
 	_ "chatAppServer/routers"
-	// "chatAppServer/filters"
+	"chatAppServer/filters"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
 	_ "github.com/go-sql-driver/mysql"
@@ -17,7 +17,7 @@ func init() {
 	// 建立socket
 	go socket.NewServer()
 	// 过滤器，token验证
-	// beego.InsertFilter("/*", beego.BeforeExec, filters.TokenFilter)
+	beego.InsertFilter("/*", beego.BeforeExec, filters.TokenFilter)
 	// 建立redis连接
 	utils.InitRedis()
 }

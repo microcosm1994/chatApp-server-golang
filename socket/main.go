@@ -51,6 +51,7 @@ func NewServer() {
 	MsgMount(*server)
 	GroupMsgMount(*server)
 	VideoMount(*server, pool)
+	VideoGroupMount(*server)
 	go server.Serve()
 	defer server.Close()
 	http.Handle("/", server)
