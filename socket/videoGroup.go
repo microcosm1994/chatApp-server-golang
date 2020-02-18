@@ -1,7 +1,6 @@
 package socket
 
 import (
-	"fmt"
 	"strconv"
 
 	socketio "github.com/googollee/go-socket.io"
@@ -9,11 +8,12 @@ import (
 
 /*VideoGroupOps PeerOps*/
 type VideoGroupOps struct {
-	Type      string `json:"type"`
-	Name      string `json:"name"`
-	VideoGroupId int    `json:"videoGroupId"`
-	UserId int    `json:"userId"`
-	Data interface{} `json:"data"`
+	Type         string      `json:"type"`
+	Name         string      `json:"name"`
+	VideoGroupId int         `json:"videoGroupId"`
+	UserId       int         `json:"userId"`
+	TargetId     int         `json:"targetId"`
+	Data         interface{} `json:"data"`
 }
 
 /*VideoGroupMount 挂载监听*/
@@ -34,9 +34,7 @@ func JoinVideoGroupRoom(server socketio.Server) {
 		// 生成房间名称
 		room := "video_group_" + strconv.Itoa(msg.VideoGroupId)
 		server.JoinRoom(room, s)
-		server.BroadcastToRoom(room, "VideoGroupNotice", result)
-		fmt.Println(server.Rooms())
-		fmt.Println(s.Rooms())
+		server.BroadcastToRoom(room, "VideoGroupJoin", result)
 		return nil
 	})
 }
@@ -44,9 +42,13 @@ func JoinVideoGroupRoom(server socketio.Server) {
 /*LeaveVideoGroupRoom 离开视频房间*/
 func LeaveVideoGroupRoom(server socketio.Server) {
 	server.OnEvent("/socket.io/", "video_group_room_leave", func(s socketio.Conn, msg VideoGroupOps) error {
+		var result VideoGroupOps
+		result.UserId = msg.UserId
+		result.VideoGroupId = msg.VideoGroupId
 		// 生成房间名称
 		room := "video_group_" + strconv.Itoa(msg.VideoGroupId)
 		server.LeaveRoom(room, s)
+		server.BroadcastToRoom(room, "VideoGroupLeave", result)
 		return nil
 	})
 }
@@ -57,6 +59,7 @@ func GroupIce(server socketio.Server) {
 		var result VideoGroupOps
 		result.Type = msg.Type
 		result.UserId = msg.UserId
+		result.TargetId = msg.TargetId
 		result.Data = data
 		// 生成房间
 		room := "video_group_" + strconv.Itoa(msg.VideoGroupId)
@@ -70,6 +73,7 @@ func GroupOffer(server socketio.Server) {
 	server.OnEvent("/socket.io/", "video_group_offer", func(s socketio.Conn, msg VideoGroupOps, data interface{}) error {
 		var result VideoGroupOps
 		result.UserId = msg.UserId
+		result.TargetId = msg.TargetId
 		result.Data = data
 		// 生成房间
 		room := "video_group_" + strconv.Itoa(msg.VideoGroupId)
@@ -83,6 +87,7 @@ func GroupAnswer(server socketio.Server) {
 	server.OnEvent("/socket.io/", "video_group_answer", func(s socketio.Conn, msg VideoGroupOps, data interface{}) error {
 		var result VideoGroupOps
 		result.UserId = msg.UserId
+		result.TargetId = msg.TargetId
 		result.Data = data
 		// 生成房间
 		room := "video_group_" + strconv.Itoa(msg.VideoGroupId)

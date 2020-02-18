@@ -680,7 +680,7 @@ definitions:
   '{}':
     title: '{}'
     type: object
-  23299.0xc000391bc0.false:
+  23299.0xc0003a3500.false:
     title: "false"
     type: object
   controllers.FriendsAskResult:
@@ -737,7 +737,7 @@ definitions:
     type: object
     properties:
       data:
-        $ref: '#/definitions/23299.0xc000391bc0.false'
+        $ref: '#/definitions/23299.0xc0003a3500.false'
       msg:
         type: string
       status:
